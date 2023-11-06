@@ -1,0 +1,50 @@
+body {
+    background-color: #FFBA5C;
+}
+.container {
+    background-color: rgb(255, 255, 255);
+    border-radius: 7px;
+    margin-top:100px;
+    max-width: 500px;
+    max-height: 600px;
+    height: 100%;
+    display: flex;
+    align-content: center;
+    padding: 50px;
+}
+.container-body{
+    width: 100%;
+}
+.container-img {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 150px;
+}
+.col-md-6 {
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.container-text{
+    width: 70%;
+    justify-content: center;
+    display: grid;
+    color: #47525E;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+}
+.login{
+    width: 70%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.submit_custom{
+    background-color: #FF9052;
+    width: 100%;
+    color: white;
+}
