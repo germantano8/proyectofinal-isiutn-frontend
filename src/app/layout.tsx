@@ -10,8 +10,8 @@ export default function Layout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className='container'>{children}</body>
+    <html lang="en" suppressHydrationWarning={true}>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }

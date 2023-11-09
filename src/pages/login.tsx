@@ -1,9 +1,8 @@
 import Layout from '../app/layout';
-import type { NextPage } from 'next'
 import React, {SyntheticEvent, useState, useEffect} from 'react';
 import style from './style.module.css'
 
-const Login: NextPage = ()=>{
+export default function Login(){
 
     const [nombre, setNombre] = useState('');
     const [password, setPassword] = useState('');
@@ -45,5 +44,3 @@ const Login: NextPage = ()=>{
         </Layout>
     )
 }
-
-export default Login;
