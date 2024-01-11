@@ -12,7 +12,7 @@ function App() {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			// credentials:'include',
+			credentials:'include',
 			body: JSON.stringify({
 				nombre,
 				password,
@@ -24,14 +24,14 @@ function App() {
         console.log(data)
 
         if (data.token) {
-			localStorage.setItem('token', data.token)
+			localStorage.setItem('token', data.token);
         }else{
 			alert("mal ingresados")
 		}
 
-		const data2 = await fetch('http://localhost:3000/api/cliente', {
-			method: 'GET'})
+		const response2 = await fetch('http://localhost:3000/api/vehiculo')
 
+		const data2 = await response2.json()
 		console.log(data2)
 	}
 
