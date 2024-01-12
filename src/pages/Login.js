@@ -7,7 +7,7 @@ function App() {
 	async function loginUser(e) {
 		e.preventDefault()
 
-		const response = await fetch('https://controlmaq.onrender.com/api/usuario/login', {
+		const response = await fetch('http://localhost:3000/api/usuario/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -23,7 +23,13 @@ function App() {
 
         console.log(data)
 
-		const response2 = await fetch('https://controlmaq.onrender.com/api/vehiculo')
+		const response2 = await fetch('http://localhost:3000/api/vehiculo',{
+			method:'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			credentials:'include',
+		})
 
 		const data2 = await response2.json()
 		console.log(data2)
