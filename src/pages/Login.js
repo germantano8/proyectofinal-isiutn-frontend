@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function App() {
+const Login = () => {
 	const [nombre, setNombre] = useState('')
 	const [password, setPassword] = useState('')
 
@@ -57,4 +57,4 @@ function App() {
 	)
 }
 
-export default App
+export default Login
