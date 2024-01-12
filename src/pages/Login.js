@@ -7,7 +7,7 @@ function App() {
 	async function loginUser(e) {
 		e.preventDefault()
 
-		const response = await fetch('http://localhost:3000/api/usuario/login', {
+		const response = await fetch('https://controlmaq.onrender.com/api/usuario/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -23,13 +23,7 @@ function App() {
 
         console.log(data)
 
-        if (data.token) {
-			localStorage.setItem('token', data.token);
-        }else{
-			alert("mal ingresados")
-		}
-
-		const response2 = await fetch('http://localhost:3000/api/vehiculo')
+		const response2 = await fetch('https://controlmaq.onrender.com/api/vehiculo')
 
 		const data2 = await response2.json()
 		console.log(data2)
