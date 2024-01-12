@@ -1,9 +1,17 @@
 import React from 'react'
+import Cookies from 'universal-cookie';
+const cookies = new Cookies(null, { path: '/' });
 
 const Dashboard = () => {
-
+    
     async function req (e) {
         e.preventDefault()
+        const token = cookies.get('token')
+        
+        if(token){
+            cookies.remove('token')
+        }
+
         const response2 = await fetch('http://localhost:3000/api/vehiculo',{
         method:'GET',
         headers: {
