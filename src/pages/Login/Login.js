@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Container } from 'react-bootstrap'
+import { React, useState } from 'react'
+import './login.css'
 
 const Login = () => {
 	const [nombre, setNombre] = useState('')
@@ -8,7 +8,7 @@ const Login = () => {
 	async function loginUser(e) {
 		e.preventDefault()
 
-		const response = await fetch('http://localhost:3000/api/usuario/login', {
+		await fetch('http://localhost:3000/api/usuario/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -20,15 +20,13 @@ const Login = () => {
 			}),
 		})
 
-		const data = await response.json()
-
-        console.log(data)
+		window.location.href='/'
 	}
 
 	return (
-		<Container>
+		<div className='container'>
 			<div className="row justify-content-center">
-				<div className="col-6">
+				<div className="col-lg-4 col-md-6 col-12">
 					<form onSubmit={loginUser}>
 						<h1 className='text-center'>ControlMaq</h1>
 						<br/>
@@ -44,11 +42,11 @@ const Login = () => {
 							onChange={(e) => setPassword(e.target.value)}/>
 						
 						<br/>
-						<button className="btn btn-primary" type="submit" value="Login">Ingresar</button>
+						<button className="btn btn-orange" type="submit" value="Login">Ingresar</button>
 					</form>
 				</div>
 			</div>
-		</Container>
+		</div>
 	)
 }
 
