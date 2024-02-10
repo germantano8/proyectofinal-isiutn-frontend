@@ -1,41 +1,33 @@
-import {React, useState, useEffect} from 'react'
+import {React} from 'react'
 import Card from './Card'
+import {useGetVehiculos} from '../hooks/getVehiculos'
+import Loading from './Loading'
 
 const Cards = () => {
 
-    const [vehiculos, setVehiculos] = useState([]);
-
-    const getVehiculos = async () => {
-    
-        try {
-            const res = await fetch('http://localhost:3000/api/vehiculo', {
-                method:'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials:'include',
-            });
-            if (!res.ok) {
-                throw new Error('No se pudo obtener la información');
-            }
-            const data = await res.json();
-            setVehiculos(data);
-        }catch (error) {
-            console.error('Error al obtener objetos:', error);
-        }
-    };
-    
-    useEffect(() => {
-        getVehiculos();
-    }, []);
+    const [vehiculos, loading] = useGetVehiculos();
 
     return (
-        <div className='row'>
-            {vehiculos.map((vehiculo, index) => {
-                    return <Card key={index} object={vehiculo}/>
-                })
-            }
-        </div>
+        <>
+            <h1 className='text-left'>Panel general</h1>
+            <br/>
+            <button className="btn btn-orange">Nuevo trabajo</button>
+
+            <br/><br/>
+
+            {loading && <Loading/>}
+
+            <div className='row'>
+                {vehiculos.map((vehiculo, index) => {
+                        return (
+                            <div className='col-4'>
+                                <Card key={index} vehiculo={vehiculo}/>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </>
     )
 }
 

@@ -13,11 +13,6 @@ const Dashboard = () => {
             <div className="row justify-content-center">
                 <Sidebar/>
                 <div className="col-9">
-                    <h1 className='text-left'>Panel general</h1>
-                    <br/>
-                    <button className="btn btn-orange">Nuevo trabajo</button>
-
-                    <br/><br/>
                     <Cards/>
                 </div>
             </div>
