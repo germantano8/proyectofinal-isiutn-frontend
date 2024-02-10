@@ -21,7 +21,7 @@ const Cards = () => {
                 {vehiculos.map((vehiculo, index) => {
                         return (
                             <div className='col-4'>
-                                <Card key={index} vehiculo={vehiculo}/>
+                                <Card key={vehiculo.patente} vehiculo={vehiculo}/>
                             </div>
                         )
                     })

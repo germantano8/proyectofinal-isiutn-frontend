@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import './login.css'
+const URL = process.env.URL
 
 const Login = () => {
 	const [nombre, setNombre] = useState('')
@@ -8,7 +9,7 @@ const Login = () => {
 	async function loginUser(e) {
 		e.preventDefault()
 
-		await fetch('http://localhost:3000/api/usuario/login', {
+		await fetch(`${URL}/api/usuario/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
