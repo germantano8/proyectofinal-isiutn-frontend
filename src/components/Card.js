@@ -1,9 +1,10 @@
 import React from 'react'
 
-const Card = () => {
+const Card = (vehiculo) => {
   return (
-    <div>Card</div>
+    <div>
+      <p>Patente: {vehiculo.patente}</p>
+    </div>
   )
 }
-
 export default Card
