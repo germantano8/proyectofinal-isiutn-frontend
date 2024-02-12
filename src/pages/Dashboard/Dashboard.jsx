@@ -9,14 +9,12 @@ const Dashboard = () => {
     }
 
     return (
-        <div className='container'>
-            <div className="row justify-content-center">
-                <Sidebar/>
-                <div className="col-9">
-                    <Cards/>
-                </div>
+        <>
+            <Sidebar/>
+            <div className="col-12 col-md-6 col-lg-9">
+                <Cards/>
             </div>
-        </div>
+        </>
     )
 }
 

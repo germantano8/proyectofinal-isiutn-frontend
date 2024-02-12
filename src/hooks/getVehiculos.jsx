@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 
-export const useGetVehiculos = () => {
+export const useGetVehiculos = (element) => {
     const [vehiculos, setVehiculos] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -8,7 +8,7 @@ export const useGetVehiculos = () => {
     
         setLoading(true);
         try {
-            const res = await fetch('http://localhost:3000/api/vehiculo', {
+            const res = await fetch(`${process.env.REACT_APP_URL}/api/${element}`, {
                 method:'GET',
                 headers: {
                     'Content-Type': 'application/json',

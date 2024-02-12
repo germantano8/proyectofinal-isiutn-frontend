@@ -5,7 +5,7 @@ import Loading from './Loading'
 
 const Cards = () => {
 
-    const [vehiculos, loading] = useGetVehiculos();
+    const [vehiculos, loading] = useGetVehiculos('vehiculo');
 
     return (
         <>
@@ -18,10 +18,11 @@ const Cards = () => {
             {loading && <Loading/>}
 
             <div className='row'>
-                {vehiculos.map((vehiculo, index) => {
+                {vehiculos.map((vehiculo) => {
                         return (
-                            <div className='col-4'>
+                            <div className='col-12 col-lg-4'>
                                 <Card key={vehiculo.patente} vehiculo={vehiculo}/>
+                                <br />
                             </div>
                         )
                     })
