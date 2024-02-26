@@ -1,11 +1,11 @@
 import {React} from 'react'
 import Card from './Card'
-import {useGetVehiculos} from '../hooks/getVehiculos'
+import {useGetData} from '../hooks/getData'
 import Loading from './Loading'
 
 const Cards = () => {
 
-    const [vehiculos, loading] = useGetVehiculos('vehiculo');
+    const [vehiculos, loading] = useGetData('vehiculo');
 
     return (
         <>

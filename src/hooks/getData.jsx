@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
 
-export const useGetVehiculos = (element) => {
-    const [vehiculos, setVehiculos] = useState([]);
+export const useGetData = (element) => {
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const getVehiculos = useCallback(async () => {
+    const getData = useCallback(async () => {
     
         setLoading(true);
         try {
@@ -21,7 +21,7 @@ export const useGetVehiculos = (element) => {
             const data = await res.json();
 
             if(data){
-                setVehiculos(data);
+                setData(data);
             }
             
             setLoading(false);
@@ -31,8 +31,8 @@ export const useGetVehiculos = (element) => {
     }, []);
     
     useEffect(() => {
-        getVehiculos();
-    }, [getVehiculos]);
+        getData();
+    }, [getData]);
 
-    return [vehiculos, loading];
+    return [data, loading];
 }
