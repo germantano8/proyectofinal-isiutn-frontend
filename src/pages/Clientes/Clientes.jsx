@@ -2,6 +2,7 @@ import React from 'react'
 import Sidebar from '../../components/Sidebar'
 import {useGetData} from '../../hooks/getData'
 import Loading from '../../components/Loading'
+import EditDelete from '../../components/EditDelete'
 
 const Clientes = () => {
 
@@ -10,8 +11,13 @@ const Clientes = () => {
   return (
     <>
         <Sidebar/>
-        <div className='col-12 col-md-6 col-lg-9'>
+        <div className='table-responsive col-12 col-md-6 col-lg-9'>
           <h1 className='text-left'>Clientes</h1>
+
+          <br />
+          <button className="btn btn-orange">Nuevo cliente</button>
+          <br/><br/>
+
           <table className="table table-striped">
             <thead>
               <tr>
@@ -30,10 +36,7 @@ const Clientes = () => {
                       <tr key={c.cuit}>
                         <td>{c.cuit}</td>
                         <td>{c.razon_social}</td>
-                        <td>
-                        <i class="bi bi-building-fill-x"></i>
-                          <button className='btn btn-danger'>Eliminar</button>
-                        </td>
+                        <EditDelete id={c.cuit}/>
                       </tr>
                     )
                   })

@@ -8,7 +8,7 @@ const Card = ({vehiculo}) => {
         <p className="card-text">Patente: {vehiculo.patente}</p>
         <p className="card-text">Estado: {vehiculo.estado}</p>
         <p className="card-text">Km: {vehiculo.kilometraje}</p>
-        <a href={`/vehiculo/${vehiculo.patente}`} className="btn btn-primary">Ver detalles</a>
+        <a href={`/vehiculo/${vehiculo.patente}`} className="btn btn-orange">Ver detalles</a>
       </div>
     </div>
   )

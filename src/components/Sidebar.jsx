@@ -10,7 +10,7 @@ const className = "list-group-item list-group-item-action"
 return (
     <div className="col-12 col-md-6 col-lg-3">
         <img src="./logo-controlmaq.png" className='img-thumbnail' alt="logo controlmaq"/>
-        <br/>
+        <br/><br />
         <div className="list-group">
             <a href="/" className={pathname === "/" ? `${className} active` : className}>Overview</a>
             <a href="#" className="list-group-item list-group-item-action">Proyectos</a>
