@@ -21,6 +21,7 @@ const Clientes = () => {
           <table className="table table-striped">
             <thead>
               <tr>
+                  {/* {clientes && Object.keys(clientes[0]).map((k)=>{return <th scope="col">{k.replace('_', ' ').toLocaleUpperCase()}</th>})} */}
                   <th scope="col">Cuit</th>
                   <th scope="col">Razón Social</th>
                   <th scope="col">Acciones</th>
@@ -36,7 +37,7 @@ const Clientes = () => {
                       <tr key={c.cuit}>
                         <td>{c.cuit}</td>
                         <td>{c.razon_social}</td>
-                        <EditDelete id={c.cuit}/>
+                        <EditDelete element={"cliente"} id={c.cuit}/>
                       </tr>
                     )
                   })
