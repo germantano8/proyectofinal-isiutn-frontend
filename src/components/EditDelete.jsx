@@ -1,15 +1,15 @@
 import React from 'react'
 import { deleteData } from '../hooks/deleteData';
 
-const EditDelete = ({element, id}) => {
+const EditDelete = ({data, element, id}) => {
 
     const editItem = (id) => {
         console.log('Editando el cliente con cuit: ', id);
     }
 
-    const deleteItem = (element, id) => {
-        deleteData(element, id);
-        console.log(`Borrando el elemento ${element} con id ${id}`);
+    const deleteItem = async (element, id) => {
+        await deleteData(element, id);
+        window.location.href = `/${element}s`;
     }
 
     return (

@@ -37,7 +37,7 @@ const Clientes = () => {
                       <tr key={c.cuit}>
                         <td>{c.cuit}</td>
                         <td>{c.razon_social}</td>
-                        <EditDelete element={"cliente"} id={c.cuit}/>
+                        <EditDelete data={clientes} element={"cliente"} id={c.cuit}/>
                       </tr>
                     )
                   })
