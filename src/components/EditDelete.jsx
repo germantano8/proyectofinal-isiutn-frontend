@@ -7,6 +7,8 @@ const EditDelete = ({data, element, id}) => {
         console.log('Editando el cliente con cuit: ', id);
     }
 
+    // Esta función se encarga de borrar un objeto de la base de datos y recargar la página
+
     const deleteItem = async (element, id) => {
         await deleteData(element, id);
         window.location.href = `/${element}s`;

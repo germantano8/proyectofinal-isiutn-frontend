@@ -1,50 +1,84 @@
-import React from 'react'
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+import { insertData } from '../hooks/insertData';
 
-const ModalFormulario = () => {
+const ModalFormulario = ({element, value, props}) => {
+    
+    // element: el nombre del elemento (objeto) con el que se está trabajando
+    // value: el texto que se va a mostrar en el botón
+    // props: recibe las propiedades del objeto que se va a agregar desde la página en la que se esté trabajando
 
-    const exampleModal = document.getElementById('exampleModal')
-    if (exampleModal) {
-        exampleModal.addEventListener('show.bs.modal', event => {
-            // Button that triggered the modal
-            const button = event.relatedTarget
-            // Extract info from data-bs-* attributes
-            const recipient = button.getAttribute('data-bs-whatever')
-            // If necessary, you could initiate an Ajax request here
-            // and then do the updating in a callback.
+    // Acá se define el estado del formulario
+    const [formData, setFormData] = useState({
+        ...props
+    });
 
-            // Update the modal's content.
-            const modalTitle = exampleModal.querySelector('.modal-title')
-            const modalBodyInput = exampleModal.querySelector('.modal-body input')
+    // Acá se definen las funciones que se van a encargar de mostrar y ocultar el modal
+    const [show, setShow] = useState(false);
+    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
 
-            modalTitle.textContent = `Nuevo ${recipient}`
-            modalBodyInput.value = recipient
-        })
+    // Esta función se va a encargar de manejar los cambios en el formulario, a medida que el usuario vaya
+    // ingresando datos, se van a ir actualizando los valores del formulario a enviar
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    // Esta función se va a encargar de enviar los datos del formulario a la base de datos
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await insertData(element, formData);
+        console.log(formData)
+        setShow(false);
+        window.location.href = `/${element}s`;
     }
+    
+    return (
+        <>
+            <Button className="btn btn-orange" onClick={handleShow}>
+                {value}
+            </Button>
+    
+            <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>{value}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form onSubmit={handleSubmit}>
+                
+                {Object.keys(props).map((p)=>{ return(
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>{p.replace('_', ' ').toUpperCase()}</Form.Label>
+                    <Form.Control
+                    type="text"
+                    placeholder={p.replace('_', ' ').toUpperCase()}
+                    value={formData.p}
+                    name={p}
+                    onChange={handleChange}
+                    />
+                    </Form.Group>
+                    )
+                })}
 
-  return (
-    <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-            <div className="modal-content">
-            <div className="modal-header">
-                <h1 className="modal-title fs-5" id="exampleModalLabel">Nuevo objeto / Editar objeto</h1>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-                <form>
-                <div className="mb-3">
-                    <label for="recipient-name" className="col-form-label">Recipient:</label>
-                    <input type="text" className="form-control" id="recipient-name"/>
-                </div>
-                </form>
-            </div>
-            <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" className="btn btn-warning">Confirmar</button>
-            </div>
-            </div>
-        </div>
-    </div>
-  )
+                <Button variant="secondary" onClick={handleClose}>
+                Cerrar
+                </Button>
+                &ensp;
+                <Button variant="primary" type="submit">
+                Guardar cambios
+                </Button>
+
+                </Form>
+            </Modal.Body>
+            </Modal>
+        </>
+    )
 }
 
 export default ModalFormulario
