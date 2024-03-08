@@ -7,6 +7,9 @@ import ModalFormulario from '../../components/ModalFormulario'
 
 const Clientes = () => {
 
+  // Acá se llama al hook useGetData, que hace el fetch API a la URL 
+  // correspondiente (enviada por parámetro) y devuelve un array con los datos y 
+  // un booleano que indica si se están cargando los datos
   const [clientes, loading] = useGetData('cliente');
 
   // Acá se define la estructura del objeto que vamos a estar trabajando en esta página
