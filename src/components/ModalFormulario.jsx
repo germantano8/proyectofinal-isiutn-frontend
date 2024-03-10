@@ -3,8 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { insertData } from '../hooks/insertData';
+import { updateData } from '../hooks/updateData';
 
-const ModalFormulario = ({element, value, props}) => {
+const ModalFormulario = ({element, value, props, mode, id=null}) => {
     
     // element: el nombre del elemento (objeto) con el que se está trabajando
     // value: el texto que se va a mostrar en el botón
@@ -12,7 +13,7 @@ const ModalFormulario = ({element, value, props}) => {
 
     // Acá se define el estado del formulario
     const [formData, setFormData] = useState({
-        ...props
+        ...props,
     });
 
     // Acá se definen las funciones que se van a encargar de mostrar y ocultar el modal
@@ -33,8 +34,11 @@ const ModalFormulario = ({element, value, props}) => {
     // Esta función se va a encargar de enviar los datos del formulario a la base de datos
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await insertData(element, formData);
-        console.log(formData)
+        if(mode==='new'){
+            await insertData(element, formData);
+        }else{
+            await updateData(element, formData, id);
+        }
         setShow(false);
         window.location.href = `/${element}s`;
     }
@@ -58,7 +62,7 @@ const ModalFormulario = ({element, value, props}) => {
                     <Form.Control
                     type="text"
                     placeholder={p.replace('_', ' ').toUpperCase()}
-                    value={formData.p}
+                    value={formData[p]}
                     name={p}
                     onChange={handleChange}
                     />

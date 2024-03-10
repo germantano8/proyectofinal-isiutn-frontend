@@ -31,7 +31,7 @@ const Clientes = () => {
           
           */}
           <br />
-          <ModalFormulario element={"cliente"} value={"Nuevo cliente"} props={props}/>
+          <ModalFormulario element={"cliente"} value={"Nuevo cliente"} props={props} mode={'new'}/>
           <br/><br/>
 
           <table className="table table-striped">
