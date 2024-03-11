@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Login from './pages/Login/Login'
 import Dasboard from './pages/Dashboard/Dashboard'
 import Clientes from './pages/Clientes/Clientes'
+import Trabajos from './pages/Trabajos/Trabajos'
 
 const App = () => {
 	return (
@@ -12,6 +13,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Dasboard/>} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/trabajos" element={<Trabajos/>} />
           <Route path="/clientes" element={<Clientes/>} />
         </Routes>
       </div>

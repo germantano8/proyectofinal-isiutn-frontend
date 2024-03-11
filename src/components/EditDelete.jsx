@@ -12,8 +12,8 @@ const EditDelete = ({data, element, id}) => {
     }
 
     return (
-        <td>
-            <ModalFormulario element={element} value={<i class="bi bi-pencil"></i>} props={data.find((c) => c.cuit === id)} mode={'update'} id={id}/>
+        <td> 
+            <ModalFormulario element={element} value={<i class="bi bi-pencil"></i>} props={data.find((objeto) => Object.values(objeto)[0] === id)} mode={'update'} id={id}/>
             &ensp;
             <button className='btn btn-danger' onClick={() => {deleteItem(element, id)}}><i class="bi bi-trash3"></i></button>
         </td>
