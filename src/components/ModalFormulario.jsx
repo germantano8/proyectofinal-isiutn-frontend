@@ -5,11 +5,13 @@ import { updateData } from '../hooks/updateData';
 import { clienteSchema } from '../Validations/clienteSchema';
 import { trabajoSchema } from '../Validations/trabajoSchema';
 
-const ModalFormulario = ({element, value, props, mode, id=null}) => {
+const ModalFormulario = ({element, value, props, mode, id}) => {
     
     // element: el nombre del elemento (objeto) con el que se está trabajando
     // value: el texto que se va a mostrar en el botón
     // props: recibe las propiedades del objeto que se va a agregar desde la página en la que se esté trabajando
+    // mode: 'new' o 'update'
+    // id: el id del objeto que se va a actualizar
 
     // Acá se define el estado del formulario
     const [formData, setFormData] = useState({
@@ -66,7 +68,7 @@ const ModalFormulario = ({element, value, props, mode, id=null}) => {
                     await updateData(element, formData, id);
                 }
                 setShow(false);
-                window.location.href = `/${element}s`;
+                window.location.reload();
             }
         }catch(e){
             setErrors(e.errors || []);

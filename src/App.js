@@ -1,25 +1,31 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import {cookies} from './utils/utils'
-import Login from './pages/Login/Login'
-import Dashboard from './pages/Dashboard/Dashboard'
-import Clientes from './pages/Clientes/Clientes'
-import Trabajos from './pages/Trabajos/Trabajos'
+import * as utils from './utils/utils'
+import Sidebar from './components/Sidebar'
+import { 
+  Login, 
+  Dashboard, 
+  Clientes, 
+  Proyectos, 
+  ProyectoSingle 
+} from './pages'
 
 const App = () => {
 
-  const token = cookies.get('token')
+  const token = utils.cookies.get('token')
 
 	return (
     <div className='container'>
       <br/>
       <div className="row justify-content-center">
+        {token && <Sidebar />}
         <Routes>
           <Route path="/login" element={<Login />} />
           {token ? (
             <>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/trabajos" element={<Trabajos />} />
+              <Route path="/proyectos" element={<Proyectos />} />
+              <Route path="/proyecto/:id" element={<ProyectoSingle />} />
               <Route path="/clientes" element={<Clientes />} />
             </>
           ) : 

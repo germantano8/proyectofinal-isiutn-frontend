@@ -1,17 +1,12 @@
-import {cookies} from '../../utils/utils'
 import { React, useState } from 'react'
 import './login.css'
 
 const Login = () => {
 
-	if(cookies.get('token')){
-        window.location.href = "/"
-    }
-
 	const [nombre, setNombre] = useState('')
 	const [password, setPassword] = useState('')
 
-	async function loginUser(e) {
+	const loginUser = async (e) => {
 		e.preventDefault()
 
 		await fetch(`${process.env.REACT_APP_URL}/api/usuario/login`, {

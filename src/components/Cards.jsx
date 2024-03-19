@@ -11,9 +11,6 @@ const Cards = () => {
         <>
             <h1 className='text-left'>Panel general</h1>
             <br/>
-            <button className="btn btn-orange">Nuevo trabajo</button>
-
-            <br/><br/>
 
             {loading && <Loading/>}
 
