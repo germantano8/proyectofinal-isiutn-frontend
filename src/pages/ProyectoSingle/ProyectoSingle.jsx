@@ -113,9 +113,9 @@ const ProyectoSingle = () => {
 
                 {editable ? (
                     <>
-                        <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancelar</button>
-                        &nbsp;
                         <button type="button" className="btn btn-orange" onClick={handleSave}>Guardar</button>
+                        &nbsp;
+                        <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancelar</button>
                     </>
                 ) : (
                     <button type="button" className="btn btn-orange" onClick={handleEdit}>Editar</button>
