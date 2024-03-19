@@ -1,16 +1,33 @@
-import {React} from 'react'
-import Sidebar from '../../components/Sidebar'
-import {useGetData} from '../../hooks/getData'
-import Loading from '../../components/Loading'
+import {React, useState, useEffect} from 'react'
 import EditDelete from '../../components/EditDelete'
 import ModalFormulario from '../../components/ModalFormulario'
 
-const Trabajos = () => {
+const Trabajos = ({id_proyecto}) => {
 
-    // Acá se llama al hook useGetData, que hace el fetch API a la URL 
-    // correspondiente (enviada por parámetro) y devuelve un array con los datos y 
-    // un booleano que indica si se están cargando los datos
-    const [trabajos, loading] = useGetData('trabajo');
+    const [trabajos, setTrabajo] = useState([]);
+
+    useEffect(() => {
+        const fetchTrabajo = async () => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_URL}/api/trabajo`,{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                
+                });
+                if (!response.ok) {
+                    throw new Error('Error al obtener los detalles del proyecto');
+                }
+                const data = await response.json();
+                setTrabajo(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchTrabajo();
+    }, []);
 
     // Acá se define la estructura del objeto que vamos a estar trabajando en esta página
     const props={
@@ -19,16 +36,14 @@ const Trabajos = () => {
         fecha_hasta:'',
         kilometraje:'',
         patente:'',
-        id_proyecto:'',
+        id_proyecto:id_proyecto,
         dni_conductor:'',
         cuit_cliente:'',
     }
 
     return (
         <>
-            <Sidebar/>
-            <div className='table-responsive col-12 col-md-6 col-lg-9'>
-            <h1 className='text-left'>Trabajos</h1>
+            <h2 className='text-left'>Trabajos</h2>
 
             {/* Acá se llama al componente ModalFormulario, que se encarga de mostrar un modal con un formulario para agregar un nuevo cliente 
                 element: el nombre del elemento que se va a agregar (va a servir para posteriormente hacer los fetch a la URL correspondientes), 
@@ -36,9 +51,7 @@ const Trabajos = () => {
                 props: las propiedades del objeto que se va a agregar
             
             */}
-            <br />
             <ModalFormulario element={"trabajo"} value={"Nuevo trabajo"} props={props} mode={'new'}/>
-            <br/><br/>
 
             <table className="table table-striped">
                 <thead>
@@ -51,11 +64,10 @@ const Trabajos = () => {
                 </tr>
                 </thead>
 
-                {loading && <Loading/>}
-
                 <tbody>
                     {
-                    trabajos.map((t) => {
+                    trabajos.filter(t => t.id_proyecto == id_proyecto)
+                        .map((t) => {
                         return (
                         <tr key={t.id_trabajo}>
                             <td>{t.id_trabajo}</td>
@@ -70,7 +82,6 @@ const Trabajos = () => {
                     }
                 </tbody>
             </table>
-            </div>
         </>
     )
 }

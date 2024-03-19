@@ -1,5 +1,4 @@
 import {React} from 'react'
-import Sidebar from '../../components/Sidebar'
 import {useGetData} from '../../hooks/getData'
 import Loading from '../../components/Loading'
 import EditDelete from '../../components/EditDelete'
@@ -20,7 +19,6 @@ const Clientes = () => {
 
   return (
     <>
-        <Sidebar/>
         <div className='table-responsive col-12 col-md-6 col-lg-9'>
           <h1 className='text-left'>Clientes</h1>
 
