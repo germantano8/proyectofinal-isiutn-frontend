@@ -9,7 +9,7 @@ const Login = () => {
 	const loginUser = async (e) => {
 		e.preventDefault()
 
-		await fetch(`${process.env.REACT_APP_URL}/api/usuario/login`, {
+		const res = await fetch(`${process.env.REACT_APP_URL}/api/usuario/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -20,8 +20,10 @@ const Login = () => {
 				password,
 			}),
 		})
-
-		window.location.href='/'
+		
+		if(res.ok){
+			window.location.href='/'
+		}
 	}
 
 	return (

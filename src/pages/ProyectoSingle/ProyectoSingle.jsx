@@ -52,6 +52,7 @@ const ProyectoSingle = () => {
     
     const handleCancel = () => {
         setEditable(false);
+        setErrors([]);
         setProyecto(initialProyecto);
     }
 

@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import {Button, Form, Modal} from 'react-bootstrap';
-import { insertData } from '../hooks/insertData';
-import { updateData } from '../hooks/updateData';
-import { clienteSchema } from '../Validations/clienteSchema';
-import { trabajoSchema } from '../Validations/trabajoSchema';
+import { insertData, updateData } from '../hooks/';
+import { clienteSchema, proyectoSchema } from '../Validations/';
 
 const ModalFormulario = ({element, value, props, mode, id}) => {
     
@@ -51,21 +49,26 @@ const ModalFormulario = ({element, value, props, mode, id}) => {
 
             let isValid;
             switch(element){
-                case "trabajo":
-                    isValid = await trabajoSchema.validate(formData, { abortEarly: false });
-                    break;
                 case "cliente":
                     isValid = await clienteSchema.validate(formData, { abortEarly: false });
+                    break;
+                case "proyecto":
+                    isValid = await proyectoSchema.validate(formData, { abortEarly: false });
                     break;
                 default:
                     break;
             }
 
+            let res;
             if(isValid){
                 if(mode==='new'){
-                    await insertData(element, formData);
+                    res = await insertData(element, formData);
                 }else{
-                    await updateData(element, formData, id);
+                    res = await updateData(element, formData, id);
+                }
+                if(!res.ok){
+                    e.errors = ['Error al intentar agregar un nuevo elemento'];
+                    setErrors(e.errors || []);
                 }
                 setShow(false);
                 window.location.reload();
@@ -87,42 +90,25 @@ const ModalFormulario = ({element, value, props, mode, id}) => {
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
-                {Object.keys(props).map((p, index)=>{
+                {Object.keys(props).map((p)=>{
 
-                    const isDateInput = p.toLowerCase().includes('fecha');
+                    let isDateInput = p.toLowerCase().includes('fecha');
                     const inputType = isDateInput ? 'date' : 'text';
 
-                    if (element === "trabajo" && index === 0) {
-                        return (
-                            <Form.Group className="mb-3" controlId={`formBasic${p}`}>
-                                <Form.Label>{p.replace('_', ' ').toUpperCase()}</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder={p.replace('_', ' ').toUpperCase()}
-                                    value={formData[p]}
-                                    name={p}
-                                    onChange={handleChange}
-                                    disabled // Agrega el atributo disabled (readOnly) si es "trabajo"
-                                />
-                            </Form.Group>
-                        );
-                    } else {
-                        return (
-                            <Form.Group className="mb-3" controlId={`formBasic${p}`} key={p}>
-                                <Form.Label>{p.replace('_', ' ').toUpperCase()}</Form.Label>
-                                <Form.Control
-                                    type={inputType}
-                                    placeholder={p.replace('_', ' ').toUpperCase()}
-                                    value={formData[p]}
-                                    name={p}
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
-                        );
-                    }
-
+                    return (
+                        <Form.Group className="mb-3" controlId={`formBasic${p}`}>
+                            <Form.Label>{p.replace('_', ' ').toUpperCase()}</Form.Label>
+                            <Form.Control
+                                type={inputType}
+                                placeholder={p.replace('_', ' ').toUpperCase()}
+                                value={formData[p]}
+                                name={p}
+                                onChange={handleChange}
+                                disabled={p.includes('id')}
+                            />
+                        </Form.Group>
+                    );
                 })}
-                
                 
                 {errors.length>0 &&
                 <div className="alert alert-danger">

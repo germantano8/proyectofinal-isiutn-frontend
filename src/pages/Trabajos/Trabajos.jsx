@@ -1,6 +1,6 @@
 import {React, useState, useEffect} from 'react'
 import EditDelete from '../../components/EditDelete'
-import ModalFormulario from '../../components/ModalFormulario'
+import ModalFormularioTrabajo from '../../components/ModalFormularioTrabajo'
 
 const Trabajos = ({id_proyecto}) => {
 
@@ -49,9 +49,8 @@ const Trabajos = ({id_proyecto}) => {
                 element: el nombre del elemento que se va a agregar (va a servir para posteriormente hacer los fetch a la URL correspondientes), 
                 value: el texto que se va a mostrar en el botón (va a variar según la página en la que estemos trabajando), 
                 props: las propiedades del objeto que se va a agregar
-            
             */}
-            <ModalFormulario element={"trabajo"} value={"Nuevo trabajo"} props={props} mode={'new'}/>
+            <ModalFormularioTrabajo value={"Nuevo trabajo"} props={props} mode={'new'}/>
 
             <table className="table table-striped">
                 <thead>
@@ -75,7 +74,7 @@ const Trabajos = ({id_proyecto}) => {
                             <td>{t.fecha_desde}</td>
                             <td>{t.fecha_hasta}</td>
                             <td>{t.kilometraje}</td>
-                            <EditDelete data={trabajos} element={"trabajo"} id={t.id_trabajo}/>
+                            {/* <EditDelete data={trabajos} element={"trabajo"} id={t.id_trabajo}/> */}
                         </tr>
                         )
                     })
