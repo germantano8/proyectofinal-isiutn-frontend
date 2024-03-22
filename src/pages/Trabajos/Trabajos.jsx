@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from 'react'
-import EditDelete from '../../components/EditDelete'
+import { deleteData } from '../../hooks';
 import ModalFormularioTrabajo from '../../components/ModalFormularioTrabajo'
 
 const Trabajos = ({id_proyecto}) => {
@@ -41,6 +41,12 @@ const Trabajos = ({id_proyecto}) => {
         cuit_cliente:'',
     }
 
+    const deleteItem = async (id) => {
+        await deleteData('trabajo', id);
+        window.location.reload();
+        console.log(id)
+    }
+
     return (
         <>
             <h2 className='text-left'>Trabajos</h2>
@@ -74,7 +80,12 @@ const Trabajos = ({id_proyecto}) => {
                             <td>{t.fecha_desde}</td>
                             <td>{t.fecha_hasta}</td>
                             <td>{t.kilometraje}</td>
-                            {/* <EditDelete data={trabajos} element={"trabajo"} id={t.id_trabajo}/> */}
+                            <td>
+                                {/* <EditDelete data={trabajos} element={"trabajo"} id={t.id_trabajo}/> */}
+                                <ModalFormularioTrabajo value={<i class="bi bi-pencil"></i>} props={trabajos.find((objeto) => Object.values(objeto)[0] === t.id_trabajo)} mode={'update'} id={t.id_trabajo}/>
+                                &ensp;
+                                <button className='btn btn-danger' onClick={() => {deleteItem(t.id_trabajo)}}><i class="bi bi-trash3"></i></button>
+                            </td>
                         </tr>
                         )
                     })

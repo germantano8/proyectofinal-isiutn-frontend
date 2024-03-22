@@ -33,26 +33,25 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try{
             let res;
-            let isValid = trabajoSchema.validate(formData, { abortEarly: false });
+            let isValid = await trabajoSchema.validate(formData, { abortEarly: false });
             if(isValid){
                 if(mode==='new'){
-                    res = insertData('trabajo', formData);
+                    res = await insertData('trabajo', formData);
                 }else{
-                    res = updateData('trabajo', formData, id);
+                    res = await updateData('trabajo', formData, id);
                 }
                 if(!res.ok){
                     e.errors = ['Error al intentar agregar un nuevo elemento'];
                     setErrors(e.errors || []);
-                    console.log("no es valida porque dio error aca", res)
                 }
                 setShow(false);
-                // window.location.reload();
+                window.location.reload();
             }
-        }catch(err){
+        }catch(e){
             setErrors(e.errors || []);
         }
     }
