@@ -1,7 +1,6 @@
 import {React, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
-import {updateData} from '../../hooks/updateData';
-import {deleteData} from '../../hooks/deleteData';
+import {updateData, deleteData} from '../../hooks/';
 import Loading from '../../components/Loading';
 import Trabajos from '../Trabajos/Trabajos';
 import {proyectoSchema} from '../../Validations/proyectoSchema';
@@ -52,6 +51,7 @@ const ProyectoSingle = () => {
     
     const handleCancel = () => {
         setEditable(false);
+        setErrors([]);
         setProyecto(initialProyecto);
     }
 

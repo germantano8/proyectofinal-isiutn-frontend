@@ -8,7 +8,7 @@ const EditDelete = ({data, element, id}) => {
 
     const deleteItem = async (element, id) => {
         await deleteData(element, id);
-        window.location.href = `/${element}s`;
+        window.location.reload();
     }
 
     return (

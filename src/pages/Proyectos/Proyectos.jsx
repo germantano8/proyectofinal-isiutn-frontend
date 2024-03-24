@@ -47,7 +47,7 @@ const Proyectos = () => {
                                 <td>{p.id}</td>
                                 <td>{p.nombre}</td>
                                 <td>{p.ubicacion}</td>
-                                <td>{p.fecha_fin_real ? p.fecha_fin_real : p.fecha_fin_estimada}</td>
+                                <td>{p.fecha_fin_real ? p.fecha_fin_real : 'En curso'}</td>
                                 <td><Link to={{ pathname: `/proyecto/${p.id}`}} className='btn btn-orange'>
                                     Detalles
                                 </Link></td>

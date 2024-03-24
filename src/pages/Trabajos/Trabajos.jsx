@@ -1,6 +1,6 @@
 import {React, useState, useEffect} from 'react'
-import EditDelete from '../../components/EditDelete'
-import ModalFormulario from '../../components/ModalFormulario'
+import { deleteData } from '../../hooks';
+import ModalFormularioTrabajo from '../../components/ModalFormularioTrabajo'
 
 const Trabajos = ({id_proyecto}) => {
 
@@ -34,11 +34,17 @@ const Trabajos = ({id_proyecto}) => {
         id_trabajo:'',
         fecha_desde:'',
         fecha_hasta:'',
-        kilometraje:'',
+        kilometraje:0,
         patente:'',
         id_proyecto:id_proyecto,
         dni_conductor:'',
         cuit_cliente:'',
+    }
+
+    const deleteItem = async (id) => {
+        await deleteData('trabajo', id);
+        window.location.reload();
+        console.log(id)
     }
 
     return (
@@ -49,9 +55,8 @@ const Trabajos = ({id_proyecto}) => {
                 element: el nombre del elemento que se va a agregar (va a servir para posteriormente hacer los fetch a la URL correspondientes), 
                 value: el texto que se va a mostrar en el botón (va a variar según la página en la que estemos trabajando), 
                 props: las propiedades del objeto que se va a agregar
-            
             */}
-            <ModalFormulario element={"trabajo"} value={"Nuevo trabajo"} props={props} mode={'new'}/>
+            <ModalFormularioTrabajo value={"Nuevo trabajo"} props={props} mode={'new'}/>
 
             <table className="table table-striped">
                 <thead>
@@ -66,7 +71,7 @@ const Trabajos = ({id_proyecto}) => {
 
                 <tbody>
                     {
-                    trabajos.filter(t => t.id_proyecto == id_proyecto)
+                    trabajos.filter(t => t.id_proyecto === parseInt(id_proyecto))
                         .map((t) => {
                         return (
                         <tr key={t.id_trabajo}>
@@ -75,7 +80,11 @@ const Trabajos = ({id_proyecto}) => {
                             <td>{t.fecha_desde}</td>
                             <td>{t.fecha_hasta}</td>
                             <td>{t.kilometraje}</td>
-                            <EditDelete data={trabajos} element={"trabajo"} id={t.id_trabajo}/>
+                            <td>
+                                <ModalFormularioTrabajo value={<i class="bi bi-pencil"></i>} props={trabajos.find((objeto) => Object.values(objeto)[0] === t.id_trabajo)} mode={'update'} id={t.id_trabajo}/>
+                                &ensp;
+                                <button className='btn btn-danger' onClick={() => {deleteItem(t.id_trabajo)}}><i class="bi bi-trash3"></i></button>
+                            </td>
                         </tr>
                         )
                     })
