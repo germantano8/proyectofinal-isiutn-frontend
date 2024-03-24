@@ -8,7 +8,7 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
     const conductores = useGetData('conductor');
     const clientes = useGetData('cliente');
     const vehiculos = useGetData('vehiculo');
-
+    // vehiculos = vehiculos.filter((v) => v.estado === 'Disponible');
     const [formData, setFormData] = useState({
         ...props,
     });
@@ -110,7 +110,6 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
                         <Form.Label>PATENTE</Form.Label>
                         <Form.Select
                             title="Seleccionar patente"
-                            // onSelect={handleSelectVehiculo}
                             onChange={(e)=>{handleChange(e, 'patente')}}
                             value={formData.patente}>
                             {vehiculos[0].map((v) => (

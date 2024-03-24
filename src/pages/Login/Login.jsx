@@ -1,13 +1,15 @@
 import { React, useState } from 'react'
 import './login.css'
+import {loginSchema} from '../../Validations'
 
 const Login = () => {
 
 	const [nombre, setNombre] = useState('')
 	const [password, setPassword] = useState('')
+	const [errors, setErrors] = useState([]);
 
 	const loginUser = async (e) => {
-		e.preventDefault()
+		e.preventDefault();
 
 		const res = await fetch(`${process.env.REACT_APP_URL}/api/usuario/login`, {
 			method: 'POST',
@@ -23,6 +25,21 @@ const Login = () => {
 		
 		if(res.ok){
 			window.location.href='/'
+		}else{
+			setErrors(['Usuario o contraseña incorrectos'])
+		}
+	}
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try{
+			let isValid = await loginSchema.validate({nombre, password}, {abortEarly: false});
+			if(isValid){
+				loginUser(e);
+				setErrors([]);
+			}
+		}catch(e){
+			setErrors(e.errors)
 		}
 	}
 
@@ -30,7 +47,7 @@ const Login = () => {
 		<div className='container'>
 			<div className="row justify-content-center">
 				<div className="col-lg-4 col-md-6 col-12">
-					<form onSubmit={loginUser}>
+					<form onSubmit={handleSubmit}>
 						<h1 className='text-center'>ControlMaq</h1>
 						<br/>
 
@@ -46,6 +63,17 @@ const Login = () => {
 						
 						<br/>
 						<button className="btn btn-orange" type="submit" value="Login">Ingresar</button>
+						<br /><br />
+
+						{errors.length>0 &&
+							<div className="alert alert-danger">
+								{ errors.map((e) => (
+										<div>
+											{e}
+										</div>
+									))}
+							</div>
+						}
 					</form>
 				</div>
 			</div>
