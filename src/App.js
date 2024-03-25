@@ -7,8 +7,9 @@ import {
   Dashboard, 
   Clientes, 
   Proyectos, 
-  ProyectoSingle 
+  ProyectoSingle
 } from './pages'
+import  Vehiculos from  './pages/Vehiculos'
 
 const App = () => {
 
@@ -27,6 +28,7 @@ const App = () => {
               <Route path="/proyectos" element={<Proyectos />} />
               <Route path="/proyecto/:id" element={<ProyectoSingle />} />
               <Route path="/clientes" element={<Clientes />} />
+              <Route path="/vehiculos" element={<Vehiculos />} />
             </>
           ) : 
             <Route path='*' element={<Navigate to='/login'></Navigate>}></Route>
