@@ -7,9 +7,9 @@ import {
   Dashboard, 
   Clientes, 
   Proyectos, 
-  ProyectoSingle
+  ProyectoSingle,
+  Vehiculos
 } from './pages'
-import  Vehiculos from  './pages/Vehiculos'
 
 const App = () => {
 

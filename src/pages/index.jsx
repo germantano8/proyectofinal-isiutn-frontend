@@ -4,6 +4,7 @@ import Clientes from './Clientes/Clientes'
 import Trabajos from './Trabajos/Trabajos'
 import Proyectos from './Proyectos/Proyectos'
 import ProyectoSingle from './ProyectoSingle/ProyectoSingle'
+import Vehiculos from './Vehiculos/Vehiculos'
 
 export {
     Login,
@@ -11,5 +12,6 @@ export {
     Clientes,
     Trabajos,
     Proyectos,
-    ProyectoSingle
+    ProyectoSingle,
+    Vehiculos
 }

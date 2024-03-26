@@ -14,7 +14,7 @@ return (
         <br/><br />
         <div className="list-group">
             <a href="/" className={pathname === "/" ? `${className} active` : className}>Overview</a>
-            <a href="#" className="list-group-item list-group-item-action">Vehículos</a>
+            <a href="/vehiculos" className="list-group-item list-group-item-action">Vehículos</a>
             <a href="/proyectos" className={pathname === "/proyectos" ? `${className} active` : className}>Proyectos</a>
             <a href="#" className="list-group-item list-group-item-action">Mantenimiento</a>
             <a href="/clientes" className={pathname === "/clientes" ? `${className} active` : className}>Clientes</a>
