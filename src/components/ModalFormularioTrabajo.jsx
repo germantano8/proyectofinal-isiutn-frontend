@@ -113,7 +113,7 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
                             onChange={(e)=>{handleChange(e, 'patente')}}
                             value={formData.patente}>
                             {vehiculos[0].map((v) => (
-                                <option key={v.patente} value={v.patente}>{v.patente} - {v.estado}</option>
+                                <option key={v.patente} value={v.patente}>{v.patente}</option>
                             ))}
                         </Form.Select>
                     </Form.Group>
@@ -135,9 +135,7 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
                             onChange={(e)=>{handleChange(e, 'dni_conductor')}}
                             value={formData.dni_conductor}>
                             {conductores[0].map((c) => (
-                                <option key={c.dni} value={c.dni}>
-                                        {c.nombre} {c.apellido} - {c.licencias} 
-                                </option>
+                                <option key={c.dni} value={c.dni}>{c.nombre} {c.apellido}</option>
                             ))}
                         </Form.Select>
                     </Form.Group>
