@@ -4,7 +4,8 @@ import Clientes from './Clientes/Clientes'
 import Trabajos from './Trabajos/Trabajos'
 import Proyectos from './Proyectos/Proyectos'
 import ProyectoSingle from './ProyectoSingle/ProyectoSingle'
-import Reparaciones from './Reparaciones/Reparaciones'            
+import Reparaciones from './Reparaciones/Reparaciones'  
+import Metricas from './Metricas/Metricas'         
 
 export {
     Login,
@@ -13,5 +14,6 @@ export {
     Trabajos,
     Proyectos,
     ProyectoSingle,
-    Reparaciones
+    Reparaciones,
+    Metricas
 }
