@@ -59,24 +59,21 @@ const ModalFormulario = ({element, value, props, mode, id}) => {
                     break;
             }
 
-            let res;
             if(isValid){
                 if(mode==='new'){
-                    res = await insertData(element, formData);
+                    await insertData(element, formData);
                 }else{
-                    res = await updateData(element, formData, id);
-                }
-                if(!res.ok){
-                    e.errors = ['Error al intentar agregar un nuevo elemento'];
-                    setErrors(e.errors || []);
+                    await updateData(element, formData, id);
                 }
                 setShow(false);
                 window.location.reload();
+            }else{
+                setErrors(e.errors || []);
             }
         }catch(e){
             setErrors(e.errors || []);
-        }
-    }
+        }
+    }
     
     return (
         <>

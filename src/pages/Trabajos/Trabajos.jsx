@@ -49,7 +49,7 @@ const Trabajos = ({id_proyecto}) => {
 
     return (
         <>
-            <h2 className='text-left'>Trabajos</h2>
+            <h2 className='text-left'>Trabajos realizados en el proyecto</h2>
 
             {/* Acá se llama al componente ModalFormulario, que se encarga de mostrar un modal con un formulario para agregar un nuevo cliente 
                 element: el nombre del elemento que se va a agregar (va a servir para posteriormente hacer los fetch a la URL correspondientes), 

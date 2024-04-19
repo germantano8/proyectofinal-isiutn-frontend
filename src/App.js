@@ -7,7 +7,8 @@ import {
   Dashboard, 
   Clientes, 
   Proyectos, 
-  ProyectoSingle 
+  ProyectoSingle,
+  Reparaciones
 } from './pages'
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
               <Route path="/proyectos" element={<Proyectos />} />
               <Route path="/proyecto/:id" element={<ProyectoSingle />} />
               <Route path="/clientes" element={<Clientes />} />
+              <Route path="/reparaciones" element={<Reparaciones />} />
             </>
           ) : 
             <Route path='*' element={<Navigate to='/login'></Navigate>}></Route>

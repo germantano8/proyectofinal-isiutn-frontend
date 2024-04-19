@@ -8,8 +8,7 @@ export const proyectoSchema = yup.object().shape({
                 .min(3, 'El nombre debe tener al menos 3 caracteres')
                 .max(20, 'El nombre debe tener como máximo 20 caracteres'),
     fecha_inicio: yup.date()
-                .required('La fecha de inicio del proyecto es requerida')
-                .min(new Date(), 'La fecha de inicio del proyecto debe ser posterior a la fecha actual'),
+                .required('La fecha de inicio del proyecto es requerida'),
     fecha_fin_estimada: yup.date().min(yup.ref('fecha_inicio'), 'La fecha de fin estimada del proyecto debe ser posterior a la fecha de inicio'),
     fecha_fin_real: yup.date().nullable().default(null).min(yup.ref('fecha_inicio'), 'La fecha de fin real del proyecto debe ser posterior a la fecha de inicio'),
     observaciones: yup.string().
