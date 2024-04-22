@@ -31,26 +31,25 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            let res;
-            let isValid = await trabajoSchema.validate(formData, { abortEarly: false });
-            if (isValid) {
-                if (mode === 'new') {
-                    res = await insertData('trabajo', formData);
-                } else {
-                    res = await updateData('trabajo', formData, id);
-                }
-                if (!res.ok) {
-                    e.errors = ['Error al intentar agregar un nuevo elemento'];
-                    setErrors(e.errors || []);
+        try{
+
+            let isValid;
+            isValid = await trabajoSchema.isValid(formData, { abortEarly: false });
+            if(isValid){
+                if(mode==='new'){
+                    await insertData('trabajo', formData);
+                }else{
+                    await updateData('trabajo', formData, id);
                 }
                 setShow(false);
                 window.location.reload();
+            }else{
+                setErrors(e.errors || []);
             }
-        } catch (e) {
+        }catch(e){
             setErrors(e.errors || []);
-        }
-    };
+        }
+    };
 
     const handleTipoTrabajoChange = (e) => {
         setTipoTrabajo(e.target.value);
@@ -112,31 +111,38 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
                             onChange={(e)=>{handleChange(e, 'kilometraje')}} />
                     </Form.Group>
 
+
                     <Form.Group className="mb-3" name="patente">
-                        <Form.Label>PATENTE</Form.Label>
-                        <Form.Select
-                            title="Seleccionar patente"
-                            onChange={(e)=>{handleChange(e, 'patente')}}
-                            value={formData.patente}>
-                            {vehiculos[0].map((v) => (
-                                <option key={v.patente} value={v.patente}>{v.patente}</option>
-                            ))}
-                        </Form.Select>
+                                <Form.Label>PATENTE</Form.Label>
+                                <Form.Select
+                                    title="Seleccionar patente"
+                                    onChange={handleChange}
+                                    value={formData.patente}
+                                    name="patente">
+                                    {vehiculos[0].map((c) => (
+                                        <option key={c.patente} value={c.patente}>{c.patente}</option>
+                                    ))}
+                                </Form.Select>
                     </Form.Group>
 
                     <Form.Group className="mb-3" name="dni_conductor">
-                        <Form.Label>CONDUCTOR</Form.Label>
-                        <Form.Select
-                            title="Seleccionar conductor"
-                            onChange={(e)=>{handleChange(e, 'dni_conductor')}}
-                            value={formData.dni_conductor}>
-                            {conductores[0].map((c) => (
-                                <option key={c.dni} value={c.dni}>{c.nombre} {c.apellido}</option>
-                            ))}
-                        </Form.Select>
+                                <Form.Label>CONDUCTOR</Form.Label>
+                                <Form.Select
+                                    title="Seleccionar conductor"
+                                    onChange={handleChange}
+                                    value={formData.dni_conductor}
+                                    name="dni_conductor"
+                                >
+                                    {conductores[0].map((c) => (
+                                        <option key={c.dni} value={c.dni}>
+                                            {c.nombre} {c.apellido}
+                                        </option>
+                                    ))}
+                                </Form.Select>
                     </Form.Group>
 
                     <Form.Group className="mb-3">
+                        <Form.Label>TIPO DE TRABAJO</Form.Label>
                             <Form.Check
                                 type="radio"
                                 label="Propio"
