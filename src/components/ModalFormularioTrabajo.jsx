@@ -166,10 +166,10 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
                                         onChange={handleChange}
                                         disabled={!tipoTrabajo}
                                     >
-                                    {proyectos[0].map((p) => () => {
+                                    {proyectos[0].map((p) => {
                                         return (
                                             <option key={p.id_proyecto} value={p.id_proyecto}>
-                                                {p.id_proyecto} - {p.nombre}
+                                                {p.id} - {p.nombre}
                                             </option>
                                         );
                                     })}
