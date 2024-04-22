@@ -9,7 +9,8 @@ import {
   Proyectos, 
   ProyectoSingle,
   Reparaciones,
-  Metricas
+  Metricas,
+  Vehiculos
 } from './pages'
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
               <Route path="/clientes" element={<Clientes />} />
               <Route path="/reparaciones" element={<Reparaciones />} />
               <Route path="/metricas" element={<Metricas />} />
+              <Route path="/vehiculos" element={<Vehiculos />} />
             </>
           ) : 
             <Route path='*' element={<Navigate to='/login'></Navigate>}></Route>

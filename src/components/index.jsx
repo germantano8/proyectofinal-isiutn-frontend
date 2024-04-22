@@ -5,6 +5,7 @@ import Loading from "./Loading";
 import ModalFormulario from "./ModalFormulario";
 import Sidebar from "./Sidebar";
 import ModalFormularioReparacion from "./ModalFormularioReparacion";
+import ModalFormularioVehiculo from "./ModalFormularioVehiculo";
 
 export {
     Card,
@@ -13,5 +14,6 @@ export {
     Loading,
     ModalFormulario,
     Sidebar,
-    ModalFormularioReparacion
+    ModalFormularioReparacion,
+    ModalFormularioVehiculo
 }
