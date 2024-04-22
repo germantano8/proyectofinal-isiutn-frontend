@@ -2,7 +2,7 @@ import {React} from 'react'
 import {useGetData} from '../../hooks/getData'
 import Loading from '../../components/Loading'
 import EditDelete from '../../components/EditDelete'
-import ModalFormularioReparaciones from '../../components/ModalFormularioReparacion'
+import ModalFormularioReparacion from '../../components/ModalFormularioReparacion'
 
 const Reparaciones = () => {
 
@@ -22,7 +22,7 @@ const Reparaciones = () => {
         <div className='table-responsive col-12 col-md-6 col-lg-9'>
           <h1 className='text-left'>Reparaciones</h1>
           <br />
-          <ModalFormularioReparaciones element={"reparacion"} value={"Nueva reparación"} props={props} mode={'new'}/>
+          <ModalFormularioReparacion element={"reparacion"} value={"Nueva reparación"} props={props} mode={'new'}/>
           <br/><br/>
 
           <table className="table table-striped">
