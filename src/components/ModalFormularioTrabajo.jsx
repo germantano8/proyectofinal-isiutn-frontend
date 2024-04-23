@@ -8,10 +8,6 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
     const clientes = useGetData('cliente');
     const vehiculos = useGetData('vehiculo');
     const proyectos = useGetData('proyecto');
-    // vehiculos = vehiculos.filter((v) => v.estado === 'Disponible');
-    const [formData, setFormData] = useState({
-        ...props,
-    });
 
     const [formData, setFormData] = useState({ ...props });
     const [errors, setErrors] = useState([]);

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import {Button, Form, Modal} from 'react-bootstrap';
 import { insertData, updateData } from '../hooks/';
-import { clienteSchema, proyectoSchema } from '../Validations/';
+import { clienteSchema, proyectoSchema, trabajoSchema } from '../Validations/';
 
-const ModalFormulario = ({element, value, props, mode, id}) => 
+const ModalFormulario = ({element, value, props, mode, id}) => {	 
     
     // element: el nombre del elemento (objeto) con el que se está trabajando
     // value: el texto que se va a mostrar en el botón
@@ -136,5 +136,4 @@ const ModalFormulario = ({element, value, props, mode, id}) =>
         </>
     )
 }
-
 export default ModalFormulario
