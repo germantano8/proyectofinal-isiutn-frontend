@@ -1,33 +1,11 @@
-import {React, useState, useEffect} from 'react'
-import { deleteData } from '../../hooks';
+import {React} from 'react'
+import { deleteData, useGetData } from '../../hooks';
 import ModalFormularioTrabajo from '../../components/ModalFormularioTrabajo'
+import {Loading} from '../../components/'
 
-const Trabajos = ({id_proyecto}) => {
+const Trabajos = () => {
 
-    const [trabajos, setTrabajo] = useState([]);
-
-    useEffect(() => {
-        const fetchTrabajo = async () => {
-            try {
-                const response = await fetch(`${process.env.REACT_APP_URL}/api/trabajo`,{
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'include',
-                
-                });
-                if (!response.ok) {
-                    throw new Error('Error al obtener los detalles del proyecto');
-                }
-                const data = await response.json();
-                setTrabajo(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchTrabajo();
-    }, []);
+    const [trabajos, loading] = useGetData('trabajo');
 
     // Acá se define la estructura del objeto que vamos a estar trabajando en esta página
     const props={
@@ -36,7 +14,7 @@ const Trabajos = ({id_proyecto}) => {
         fecha_hasta:'',
         kilometraje:0,
         patente:'',
-        id_proyecto:id_proyecto,
+        id_proyecto:0,
         dni_conductor:'',
         cuit_cliente:'',
     }
@@ -48,7 +26,7 @@ const Trabajos = ({id_proyecto}) => {
     }
 
     return (
-        <>
+        <div className='table-responsive col-12 col-md-6 col-lg-9'>
             <h2 className='text-left'>Trabajos</h2>
 
             {/* Acá se llama al componente ModalFormulario, que se encarga de mostrar un modal con un formulario para agregar un nuevo cliente 
@@ -66,13 +44,15 @@ const Trabajos = ({id_proyecto}) => {
                     <th scope="col">Fecha desde</th>
                     <th scope="col">Fecha hasta</th>
                     <th scope="col">Kilometraje</th>
+                    <th scope="col">Tipo trabajo</th>
                 </tr>
                 </thead>
 
+                {loading && <Loading/>}
+
                 <tbody>
                     {
-                    trabajos.filter(t => t.id_proyecto === parseInt(id_proyecto))
-                        .map((t) => {
+                    trabajos.map((t) => {
                         return (
                         <tr key={t.id_trabajo}>
                             <td>{t.id_trabajo}</td>
@@ -80,6 +60,7 @@ const Trabajos = ({id_proyecto}) => {
                             <td>{t.fecha_desde}</td>
                             <td>{t.fecha_hasta}</td>
                             <td>{t.kilometraje}</td>
+                            <td>{t.cuit_cliente === '11111111111' ? "Propio" : "Alquiler"}</td>
                             <td>
                                 <ModalFormularioTrabajo value={<i class="bi bi-pencil"></i>} props={trabajos.find((objeto) => Object.values(objeto)[0] === t.id_trabajo)} mode={'update'} id={t.id_trabajo}/>
                                 &ensp;
@@ -91,7 +72,7 @@ const Trabajos = ({id_proyecto}) => {
                     }
                 </tbody>
             </table>
-        </>
+        </div>
     )
 }
 

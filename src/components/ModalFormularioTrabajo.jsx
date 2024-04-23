@@ -8,6 +8,7 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
     const conductores = useGetData('conductor');
     const clientes = useGetData('cliente');
     const vehiculos = useGetData('vehiculo');
+    const proyectos = useGetData('proyecto');
     // vehiculos = vehiculos.filter((v) => v.estado === 'Disponible');
     const [formData, setFormData] = useState({
         ...props,
@@ -36,20 +37,17 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            let res;
             let isValid = await trabajoSchema.validate(formData, { abortEarly: false });
             if(isValid){
                 if(mode==='new'){
-                    res = await insertData('trabajo', formData);
+                    await insertData('trabajo', formData);
                 }else{
-                    res = await updateData('trabajo', formData, id);
-                }
-                if(!res.ok){
-                    e.errors = ['Error al intentar agregar un nuevo elemento'];
-                    setErrors(e.errors || []);
+                    await updateData('trabajo', formData, id);
                 }
                 setShow(false);
                 window.location.reload();
+            }else{
+                setErrors(e.errors || []);
             }
         }catch(e){
             setErrors(e.errors || []);
@@ -106,6 +104,7 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
                             onChange={(e)=>{handleChange(e, 'kilometraje')}} />
                     </Form.Group>
 
+
                     <Form.Group className="mb-3" name="patente">
                         <Form.Label>PATENTE</Form.Label>
                         <Form.Select
@@ -120,12 +119,17 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
 
                     <Form.Group className="mb-3" name="id_proyecto">
                         <Form.Label>ID PROYECTO</Form.Label>
-                        <Form.Control type="number" 
+                        <Form.Select
                             placeholder="ID PROYECTO"
                             value={formData['id_proyecto']}
                             name={'id_proyecto'}
-                            onChange={handleChange}
-                            disabled />
+                            onChange={(e)=>{handleChange(e, 'id_proyecto')}}>
+                        {proyectos[0].map((p) => (
+                            <option key={p.id} value={p.id}>
+                                {p.id} - {p.nombre} 
+                            </option>
+                        ))}
+                        </Form.Select>
                     </Form.Group>
 
                     <Form.Group className="mb-3" name="dni_conductor">
@@ -135,7 +139,9 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
                             onChange={(e)=>{handleChange(e, 'dni_conductor')}}
                             value={formData.dni_conductor}>
                             {conductores[0].map((c) => (
-                                <option key={c.dni} value={c.dni}>{c.nombre} {c.apellido}</option>
+                                <option key={c.dni} value={c.dni}>
+                                    {c.nombre} {c.apellido}
+                                </option>
                             ))}
                         </Form.Select>
                     </Form.Group>
