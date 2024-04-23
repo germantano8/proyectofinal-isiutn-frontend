@@ -1,20 +1,17 @@
-import {cookies} from '../../utils/utils'
 import { React, useState } from 'react'
 import './login.css'
+import {loginSchema} from '../../Validations'
 
 const Login = () => {
 
-	if(cookies.get('token')){
-        window.location.href = "/"
-    }
-
 	const [nombre, setNombre] = useState('')
 	const [password, setPassword] = useState('')
+	const [errors, setErrors] = useState([]);
 
-	async function loginUser(e) {
-		e.preventDefault()
+	const loginUser = async (e) => {
+		e.preventDefault();
 
-		await fetch(`${process.env.REACT_APP_URL}/api/usuario/login`, {
+		const res = await fetch(`${process.env.REACT_APP_URL}/api/usuario/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -25,15 +22,32 @@ const Login = () => {
 				password,
 			}),
 		})
+		
+		if(res.ok){
+			window.location.href='/'
+		}else{
+			setErrors(['Usuario o contraseña incorrectos'])
+		}
+	}
 
-		window.location.href='/'
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try{
+			let isValid = await loginSchema.validate({nombre, password}, {abortEarly: false});
+			if(isValid){
+				loginUser(e);
+				setErrors([]);
+			}
+		}catch(e){
+			setErrors(e.errors)
+		}
 	}
 
 	return (
 		<div className='container'>
 			<div className="row justify-content-center">
 				<div className="col-lg-4 col-md-6 col-12">
-					<form onSubmit={loginUser}>
+					<form onSubmit={handleSubmit}>
 						<h1 className='text-center'>ControlMaq</h1>
 						<br/>
 
@@ -49,6 +63,17 @@ const Login = () => {
 						
 						<br/>
 						<button className="btn btn-orange" type="submit" value="Login">Ingresar</button>
+						<br /><br />
+
+						{errors.length>0 &&
+							<div className="alert alert-danger">
+								{ errors.map((e) => (
+										<div>
+											{e}
+										</div>
+									))}
+							</div>
+						}
 					</form>
 				</div>
 			</div>

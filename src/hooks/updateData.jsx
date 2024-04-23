@@ -8,7 +8,6 @@ export const updateData = async (element, data, id) => {
             credentials:'include',
             body: JSON.stringify(data)
         });
-        console.log(res)
         if (!res.ok) {
             throw new Error('No se pudo actualizar el objeto');
         }

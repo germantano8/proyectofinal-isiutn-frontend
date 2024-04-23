@@ -8,7 +8,6 @@ export const insertData = async (element, data) => {
             credentials:'include',
             body: JSON.stringify(data)
         });
-        console.log(res)
         if (!res.ok) {
             throw new Error('No se pudo insertar el objeto');
         }

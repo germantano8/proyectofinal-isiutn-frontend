@@ -1,24 +1,40 @@
-import React from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
-import {cookies} from './utils/utils'
-import Login from './pages/Login/Login'
-import Dashboard from './pages/Dashboard/Dashboard'
-import Clientes from './pages/Clientes/Clientes'
-import Trabajos from './pages/Trabajos/Trabajos'
+import * as utils from './utils/utils'
+import Sidebar from './components/Sidebar'
+import { 
+  Login, 
+  Dashboard, 
+  Clientes, 
+  Proyectos, 
+  ProyectoSingle,
+  Reparaciones,
+  Metricas,
+  Vehiculos,
+  Servicios,
+  Trabajos 
+} from './pages'
 
 const App = () => {
 
-  const token = cookies.get('token')
+  const token = utils.cookies.get('token')
 
 	return (
     <div className='container'>
       <br/>
       <div className="row justify-content-center">
+        {token && <Sidebar />}
         <Routes>
           <Route path="/login" element={<Login />} />
           {token ? (
             <>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/proyectos" element={<Proyectos />} />
+              <Route path="/trabajos" element={<Trabajos />} />
+              <Route path="/proyecto/:id" element={<ProyectoSingle />} />
+              <Route path="/clientes" element={<Clientes />} />
+              <Route path="/reparaciones" element={<Reparaciones />} />
+              <Route path="/metricas" element={<Metricas />} />
+              <Route path="/vehiculos" element={<Vehiculos />} />
+              <Route path="/servicios" element={<Servicios />} />
               <Route path="/trabajos" element={<Trabajos />} />
               <Route path="/clientes" element={<Clientes />} />
             </>

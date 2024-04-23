@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import {Button, Form, Modal} from 'react-bootstrap';
-import { insertData } from '../hooks/insertData';
-import { updateData } from '../hooks/updateData';
-import { clienteSchema } from '../Validations/clienteSchema';
-import { trabajoSchema } from '../Validations/trabajoSchema';
+import { insertData, updateData } from '../hooks/';
+import { clienteSchema, proyectoSchema } from '../Validations/';
 
-const ModalFormulario = ({element, value, props, mode, id=null}) => {
+const ModalFormulario = ({element, value, props, mode, id}) => 
     
     // element: el nombre del elemento (objeto) con el que se está trabajando
     // value: el texto que se va a mostrar en el botón
     // props: recibe las propiedades del objeto que se va a agregar desde la página en la que se esté trabajando
+    // mode: 'new' o 'update'
+    // id: el id del objeto que se va a actualizar
 
     // Acá se define el estado del formulario
     const [formData, setFormData] = useState({
@@ -49,6 +49,11 @@ const ModalFormulario = ({element, value, props, mode, id=null}) => {
 
             let isValid;
             switch(element){
+                case "cliente":
+                    isValid = await clienteSchema.isValid(formData, { abortEarly: false });
+                    break;
+                case "proyecto":
+                    isValid = await proyectoSchema.isValid(formData, { abortEarly: false });
                 case "trabajo":
                     isValid = await trabajoSchema.validate(formData, { abortEarly: false });
                     break;
@@ -66,7 +71,9 @@ const ModalFormulario = ({element, value, props, mode, id=null}) => {
                     await updateData(element, formData, id);
                 }
                 setShow(false);
-                window.location.href = `/${element}s`;
+                window.location.reload();
+            }else{
+                setErrors(e.errors || []);
             }
         }catch(e){
             setErrors(e.errors || []);
@@ -85,42 +92,25 @@ const ModalFormulario = ({element, value, props, mode, id=null}) => {
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
-                {Object.keys(props).map((p, index)=>{
+                {Object.keys(props).map((p)=>{
 
-                    const isDateInput = p.toLowerCase().includes('fecha');
+                    let isDateInput = p.toLowerCase().includes('fecha');
                     const inputType = isDateInput ? 'date' : 'text';
 
-                    if (element === "trabajo" && index === 0) {
-                        return (
-                            <Form.Group className="mb-3" controlId={`formBasic${p}`}>
-                                <Form.Label>{p.replace('_', ' ').toUpperCase()}</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder={p.replace('_', ' ').toUpperCase()}
-                                    value={formData[p]}
-                                    name={p}
-                                    onChange={handleChange}
-                                    disabled // Agrega el atributo disabled (readOnly) si es "trabajo"
-                                />
-                            </Form.Group>
-                        );
-                    } else {
-                        return (
-                            <Form.Group className="mb-3" controlId={`formBasic${p}`} key={p}>
-                                <Form.Label>{p.replace('_', ' ').toUpperCase()}</Form.Label>
-                                <Form.Control
-                                    type={inputType}
-                                    placeholder={p.replace('_', ' ').toUpperCase()}
-                                    value={formData[p]}
-                                    name={p}
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
-                        );
-                    }
-
+                    return (
+                        <Form.Group className="mb-3" controlId={`formBasic${p}`}>
+                            <Form.Label>{p.replace('_', ' ').toUpperCase()}</Form.Label>
+                            <Form.Control
+                                type={inputType}
+                                placeholder={p.replace('_', ' ').toUpperCase()}
+                                value={formData[p]}
+                                name={p}
+                                onChange={handleChange}
+                                disabled={p.includes('id')}
+                            />
+                        </Form.Group>
+                    );
                 })}
-                
                 
                 {errors.length>0 &&
                 <div className="alert alert-danger">
