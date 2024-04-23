@@ -48,10 +48,7 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
                 window.location.reload();
             }else{
                 setErrors(e.errors || []);
-            }else{
-                setErrors(e.errors || []);
             }
-        }catch(e){
         }catch(e){
             setErrors(e.errors || []);
         }
