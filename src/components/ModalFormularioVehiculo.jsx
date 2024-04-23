@@ -38,8 +38,8 @@ const ModalFormularioVehiculo = ({ value, props, mode, id }) => {
                     console.log(formData, isValid)
                     await updateData('vehiculo', formData, id);
                 }
-                // setShow(false);
-                // window.location.reload();
+                setShow(false);
+                window.location.reload();
             } else {
                 setErrors(e.errors || []);
             }
