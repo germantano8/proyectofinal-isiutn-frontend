@@ -48,7 +48,10 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
                 window.location.reload();
             }else{
                 setErrors(e.errors || []);
+            }else{
+                setErrors(e.errors || []);
             }
+        }catch(e){
         }catch(e){
             setErrors(e.errors || []);
         }
@@ -103,6 +106,7 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
                             name={'kilometraje'}
                             onChange={(e)=>{handleChange(e, 'kilometraje')}} />
                     </Form.Group>
+
 
                     <Form.Group className="mb-3" name="patente">
                         <Form.Label>PATENTE</Form.Label>
