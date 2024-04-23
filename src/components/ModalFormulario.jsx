@@ -53,12 +53,13 @@ const ModalFormulario = ({element, value, props, mode, id}) => {
                     isValid = await clienteSchema.isValid(formData, { abortEarly: false });
                     break;
                 case "proyecto":
-                    isValid = await proyectoSchema.isValid(formData, { abortEarly: false });
+                    if (formData.fecha_fin_real === "") {
+                        formData.fecha_fin_real = null;
+                    }
+                    isValid = await proyectoSchema.validate(formData, { abortEarly: false });
+                    break;
                 case "trabajo":
                     isValid = await trabajoSchema.validate(formData, { abortEarly: false });
-                    break;
-                case "cliente":
-                    isValid = await clienteSchema.validate(formData, { abortEarly: false });
                     break;
                 default:
                     break;

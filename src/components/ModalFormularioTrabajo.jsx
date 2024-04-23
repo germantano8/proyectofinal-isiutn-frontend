@@ -72,6 +72,7 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
+                        <Form.Label>TIPO DE TRABAJO</Form.Label>
                             <Form.Check
                                 type="radio"
                                 label="Propio"
@@ -92,16 +93,19 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
 
                         {tipoTrabajo === 'PROPIO' && (
                             <Form.Group className="mb-3" name="id_proyecto">
-                                <Form.Label>PROYECTO</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    placeholder="ID PROYECTO"
-                                    value={formData['id_proyecto']}
-                                    name="id_proyecto"
-                                    onChange={handleChange}
-                                    disabled={!tipoTrabajo}
-                                />
-                            </Form.Group>
+                            <Form.Label>PROYECTO</Form.Label>
+                           <Form.Select
+                               title="Seleccionar proyecto"
+                               name={'id_proyecto'}
+                               onChange={(e) => { handleChange(e, 'id_proyecto') }}
+                               value={formData.id_proyecto}
+                           >
+                               <option value="" disabled hidden>Seleccionar</option>
+                               {proyectos[0].map((v) => (
+                                   <option key={v.id} value={v.id}>{v.id}-{v.nombre}</option>
+                               ))}
+                           </Form.Select>
+                       </Form.Group>
                         )}
 
                         {tipoTrabajo === 'ALQUILER' && (
@@ -162,42 +166,31 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
 
 
                     <Form.Group className="mb-3" name="patente">
-                        <Form.Label>PATENTE</Form.Label>
+                         <Form.Label>PATENTE DEL VEHÍCULO</Form.Label>
                         <Form.Select
                             title="Seleccionar patente"
-                            onChange={(e)=>{handleChange(e, 'patente')}}
-                            value={formData.patente}>
+                            name={'patente'}
+                            onChange={(e) => { handleChange(e, 'patente') }}
+                            value={formData.patente}
+                        >
+                            <option value="" disabled hidden>Seleccionar</option>
                             {vehiculos[0].map((v) => (
                                 <option key={v.patente} value={v.patente}>{v.patente}</option>
                             ))}
                         </Form.Select>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" name="id_proyecto">
-                        <Form.Label>ID PROYECTO</Form.Label>
-                        <Form.Select
-                            placeholder="ID PROYECTO"
-                            value={formData['id_proyecto']}
-                            name={'id_proyecto'}
-                            onChange={(e)=>{handleChange(e, 'id_proyecto')}}>
-                        {proyectos[0].map((p) => (
-                            <option key={p.id} value={p.id}>
-                                {p.id} - {p.nombre} 
-                            </option>
-                        ))}
-                        </Form.Select>
-                    </Form.Group>
-
                     <Form.Group className="mb-3" name="dni_conductor">
-                        <Form.Label>CONDUCTOR</Form.Label>
+                         <Form.Label>CONDUCTOR</Form.Label>
                         <Form.Select
                             title="Seleccionar conductor"
-                            onChange={(e)=>{handleChange(e, 'dni_conductor')}}
-                            value={formData.dni_conductor}>
-                            {conductores[0].map((c) => (
-                                <option key={c.dni} value={c.dni}>
-                                    {c.nombre} {c.apellido}
-                                </option>
+                            name={'dni_conductor'}
+                            onChange={(e) => { handleChange(e, 'dni_conductor') }}
+                            value={formData.dni_conductor}
+                        >
+                            <option value="" disabled hidden>Seleccionar</option>
+                            {conductores[0].map((v) => (
+                                <option key={v.dni} value={v.dni}>{v.nombre} {v.apellido}</option>
                             ))}
                         </Form.Select>
                     </Form.Group>

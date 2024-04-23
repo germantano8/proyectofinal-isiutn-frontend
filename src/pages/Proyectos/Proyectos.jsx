@@ -14,7 +14,7 @@ const Proyectos = () => {
         nombre: '',
         fecha_inicio: '',
         fecha_fin_estimada: '',
-        fecha_fin_real: '',
+        fecha_fin_real: null,
         observaciones: ''
     }
 
