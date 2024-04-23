@@ -35,10 +35,9 @@ const ModalFormularioService = ({element, value, props, mode, id}) => {
 
             let isValid;
             isValid = await serviceSchema.validate(formData, { abortEarly: false });
-            isValid = true
             if(isValid){
                 if(mode==='new'){
-                    await insertData(element, formData);
+                    await insertData('service', formData);
                 }else{
                     await updateData('service', formData, id);
                 }
