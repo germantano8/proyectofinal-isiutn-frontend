@@ -18,6 +18,8 @@ return (
             <a href="/proyectos" className={pathname === "/proyectos" ? `${className} active` : className}>Proyectos</a>
             <a href="/reparaciones" className={pathname === "/reparaciones" ? `${className} active` : className}>Reparaciones</a>
             <a href="/servicios" className={pathname === "/servicios" ? `${className} active` : className}>Services</a>
+            <a href="/trabajos" className={pathname === "/trabajos" ? `${className} active` : className}>Trabajos</a>
+            <a href="#" className="list-group-item list-group-item-action">Mantenimiento</a>
             <a href="/clientes" className={pathname === "/clientes" ? `${className} active` : className}>Clientes</a>
             <a href="/metricas" className={pathname === "/metricas" ? `${className} active` : className}>Metricas de uso</a>
         </div>

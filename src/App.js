@@ -11,7 +11,8 @@ import {
   Reparaciones,
   Metricas,
   Vehiculos,
-  Servicios
+  Servicios,
+  Trabajos 
 } from './pages'
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
             <>
               <Route path="/" element={<Dashboard />} />
               <Route path="/proyectos" element={<Proyectos />} />
+              <Route path="/trabajos" element={<Trabajos />} />
               <Route path="/proyecto/:id" element={<ProyectoSingle />} />
               <Route path="/clientes" element={<Clientes />} />
               <Route path="/reparaciones" element={<Reparaciones />} />

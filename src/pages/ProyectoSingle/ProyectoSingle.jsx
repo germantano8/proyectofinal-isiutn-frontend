@@ -2,7 +2,6 @@ import {React, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 import {updateData, deleteData} from '../../hooks/';
 import Loading from '../../components/Loading';
-import Trabajos from '../Trabajos/Trabajos';
 import {proyectoSchema} from '../../Validations/proyectoSchema';
 
 const ProyectoSingle = () => {
@@ -124,7 +123,7 @@ const ProyectoSingle = () => {
                 <button type="button" className="btn btn-danger" onClick={deleteitem}>Eliminar</button>
             </form>
             <br />
-            <Trabajos id_proyecto={id}/>
+            {/* <Trabajos id_proyecto={id}/> */}
         </div>
     )
 }
