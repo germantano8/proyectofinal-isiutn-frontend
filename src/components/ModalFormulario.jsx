@@ -50,10 +50,10 @@ const ModalFormulario = ({element, value, props, mode, id}) => {
             let isValid;
             switch(element){
                 case "cliente":
-                    isValid = await clienteSchema.validate(formData, { abortEarly: false });
+                    isValid = await clienteSchema.isValid(formData, { abortEarly: false });
                     break;
                 case "proyecto":
-                    isValid = await proyectoSchema.validate(formData, { abortEarly: false });
+                    isValid = await proyectoSchema.isValid(formData, { abortEarly: false });
                     break;
                 default:
                     break;

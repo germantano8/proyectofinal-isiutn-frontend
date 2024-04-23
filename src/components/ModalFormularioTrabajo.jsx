@@ -1,10 +1,9 @@
-import {React, useState} from 'react';
-import {Button, Form, Modal} from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
 import { trabajoSchema } from '../Validations';
 import { insertData, updateData, useGetData } from '../hooks/';
 
-const ModalFormularioTrabajo = ({value, props, mode, id}) => {
-
+const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
     const conductores = useGetData('conductor');
     const clientes = useGetData('cliente');
     const vehiculos = useGetData('vehiculo');
@@ -14,23 +13,23 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
         ...props,
     });
 
+    const [formData, setFormData] = useState({ ...props });
     const [errors, setErrors] = useState([]);
-
     const [show, setShow] = useState(false);
+    const [tipoTrabajo, setTipoTrabajo] = useState('');
+
     const handleShow = () => setShow(true);
     const handleClose = () => {
         setShow(false);
-        setFormData({
-            ...props,
-        });
+        setFormData({ ...props });
         setErrors([]);
     };
 
-    const handleChange = (e, fieldName) => {
-        const { value } = e.target;
+    const handleChange = (e) => {
+        const { name, value } = e.target;
         setFormData({
             ...formData,
-            [fieldName]: value,
+            [name]: value,
         });
     };
 
@@ -49,10 +48,20 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
             }else{
                 setErrors(e.errors || []);
             }
-        }catch(e){
+        } catch (e) {
             setErrors(e.errors || []);
         }
-    }
+    };
+
+    const handleTipoTrabajoChange = (e) => {
+        setTipoTrabajo(e.target.value);
+        // Resetear el campo correspondiente al cambiar el tipo de trabajo
+        setFormData({
+            ...formData,
+            id_proyecto: '',
+            cuit_cliente: '',
+        });
+    };
 
     return (
         <>
@@ -61,13 +70,64 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
             </Button>
 
             <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>{value}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Form onSubmit={handleSubmit}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{value}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3">
+                            <Form.Check
+                                type="radio"
+                                label="Propio"
+                                name="tipoTrabajo"
+                                value="PROPIO"
+                                checked={tipoTrabajo === 'PROPIO'}
+                                onChange={handleTipoTrabajoChange}
+                            />
+                            <Form.Check
+                                type="radio"
+                                label="Alquiler"
+                                name="tipoTrabajo"
+                                value="ALQUILER"
+                                checked={tipoTrabajo === 'ALQUILER'}
+                                onChange={handleTipoTrabajoChange}
+                            />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" name="id_trabajo">
+                        {tipoTrabajo === 'PROPIO' && (
+                            <Form.Group className="mb-3" name="id_proyecto">
+                                <Form.Label>PROYECTO</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    placeholder="ID PROYECTO"
+                                    value={formData['id_proyecto']}
+                                    name="id_proyecto"
+                                    onChange={handleChange}
+                                    disabled={!tipoTrabajo}
+                                />
+                            </Form.Group>
+                        )}
+
+                        {tipoTrabajo === 'ALQUILER' && (
+                            <Form.Group className="mb-3" name="cuit_cliente">
+                                <Form.Label>CLIENTE</Form.Label>
+                                <Form.Select
+                                    title="Seleccionar cliente"
+                                    onChange={handleChange}
+                                    value={formData.cuit_cliente}
+                                    name="cuit_cliente"
+                                    disabled={!tipoTrabajo}
+                                >
+                                    {clientes[0].map((c) => (
+                                        <option key={c.cuit} value={c.cuit}>
+                                            {c.cuit} - {c.razon_social}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        )}
+
+                       <Form.Group className="mb-3" name="id_trabajo">
                         <Form.Label>ID TRABAJO</Form.Label>
                         <Form.Control type="text" 
                             placeholder="ID" 
@@ -145,42 +205,19 @@ const ModalFormularioTrabajo = ({value, props, mode, id}) => {
                             ))}
                         </Form.Select>
                     </Form.Group>
-
-                    <Form.Group className="mb-3" name="cuit_cliente">
-                        <Form.Label>CLIENTE</Form.Label>
-                        <Form.Select
-                            title="Seleccionar cliente"
-                            onChange={(e)=>{handleChange(e, 'cuit_cliente')}}
-                            value={formData.cuit_cliente}>
-                            {clientes[0].map((c) => (
-                                <option key={c.cuit} value={c.cuit}>{c.cuit} - {c.razon_social}</option>
-                            ))}
-                        </Form.Select>
-                    </Form.Group>
-
-                    {errors.length>0 &&
-                        <div className="alert alert-danger">
-                            { errors.map((e) => (
-                                <div>
-                                    {e}
-                                </div>
-                            ))}
-                        </div>
-                    }           
-
-                    <Button variant="secondary" onClick={handleClose}>
-                    Cerrar
-                    </Button>
-                    &ensp;
-                    <Button variant="primary" type="submit">
-                    Guardar cambios
-                    </Button>
-
-                </Form>
-            </Modal.Body>
+		
+                        <Button variant="secondary" onClick={handleClose}>
+                            Cerrar
+                        </Button>
+                        &ensp;
+                        <Button variant="primary" type="submit">
+                            Guardar cambios
+                        </Button>
+                    </Form>
+                </Modal.Body>
             </Modal>
         </>
-    )
-}
+    );
+};
 
-export default ModalFormularioTrabajo
+export default ModalFormularioTrabajo;

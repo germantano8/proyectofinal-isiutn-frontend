@@ -8,6 +8,10 @@ import {
   Clientes, 
   Proyectos, 
   ProyectoSingle,
+  Reparaciones,
+  Metricas,
+  Vehiculos,
+  Servicios,
   Trabajos 
 } from './pages'
 
@@ -29,6 +33,10 @@ const App = () => {
               <Route path="/trabajos" element={<Trabajos />} />
               <Route path="/proyecto/:id" element={<ProyectoSingle />} />
               <Route path="/clientes" element={<Clientes />} />
+              <Route path="/reparaciones" element={<Reparaciones />} />
+              <Route path="/metricas" element={<Metricas />} />
+              <Route path="/vehiculos" element={<Vehiculos />} />
+              <Route path="/servicios" element={<Servicios />} />
             </>
           ) : 
             <Route path='*' element={<Navigate to='/login'></Navigate>}></Route>
