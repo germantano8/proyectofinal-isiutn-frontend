@@ -1,5 +1,3 @@
-import React from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
 import * as utils from './utils/utils'
 import Sidebar from './components/Sidebar'
 import { 
@@ -37,6 +35,8 @@ const App = () => {
               <Route path="/metricas" element={<Metricas />} />
               <Route path="/vehiculos" element={<Vehiculos />} />
               <Route path="/servicios" element={<Servicios />} />
+              <Route path="/trabajos" element={<Trabajos />} />
+              <Route path="/clientes" element={<Clientes />} />
             </>
           ) : 
             <Route path='*' element={<Navigate to='/login'></Navigate>}></Route>

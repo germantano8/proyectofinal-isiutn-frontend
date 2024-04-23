@@ -4,7 +4,6 @@ import ModalFormularioTrabajo from '../../components/ModalFormularioTrabajo'
 import {Loading} from '../../components/'
 
 const Trabajos = () => {
-
     const [trabajos, loading] = useGetData('trabajo');
 
     // Acá se define la estructura del objeto que vamos a estar trabajando en esta página

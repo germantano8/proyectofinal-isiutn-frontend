@@ -12,7 +12,7 @@ const Card = ({vehiculo}) => {
   //         descripcion: ''
   //     }
   // }
-
+  
   return (
     <div className="card">
       <div className="card-body">
