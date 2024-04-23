@@ -17,5 +17,5 @@ export {
     Sidebar,
     ModalFormularioReparacion,
     ModalFormularioVehiculo,
-    ModalFormularioService
+    ModalFormularioService,
 }

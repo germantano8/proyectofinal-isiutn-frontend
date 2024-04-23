@@ -3,7 +3,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { vehiculoSchema } from '../Validations/vehiculoSchema';
 import { insertData, updateData, useGetData } from '../hooks';
 
-const ModalFormularioVehiculo = ({ element, value, props, mode, id }) => {
+const ModalFormularioVehiculo = ({ value, props, mode, id }) => {
     const tipo_vehiculos = useGetData('tipovehiculo');
     const [formData, setFormData] = useState({
         ...props,
@@ -19,9 +19,10 @@ const ModalFormularioVehiculo = ({ element, value, props, mode, id }) => {
     };
 
     const handleChange = (e, fieldName) => {
+        const { value } = e.target;
         setFormData({
             ...formData,
-            [fieldName || e.target.name]: e.target.value,
+            [fieldName]: value,
         });
     };
 
@@ -29,15 +30,16 @@ const ModalFormularioVehiculo = ({ element, value, props, mode, id }) => {
         e.preventDefault();
         try {
             let isValid;
-            isValid = await vehiculoSchema.isValid(formData, { abortEarly: false });
+            isValid = await vehiculoSchema.validate(formData, { abortEarly: false });
             if (isValid) {
                 if (mode === 'new') {
                     await insertData('vehiculo', formData);
                 } else {
+                    console.log(formData, isValid)
                     await updateData('vehiculo', formData, id);
                 }
-                setShow(false);
-                window.location.reload();
+                // setShow(false);
+                // window.location.reload();
             } else {
                 setErrors(e.errors || []);
             }
@@ -97,14 +99,12 @@ const ModalFormularioVehiculo = ({ element, value, props, mode, id }) => {
                             />
                         </Form.Group>
 
-                        <Form.Group className="mb-3" name="tipo_vehiculo">
+                        <Form.Group className="mb-3" name="id_tipo_vehiculo">
                             <Form.Label>TIPO</Form.Label>
                             <Form.Select
                                 title="Seleccionar tipo de vehículo"
-                                onChange={(e) => {
-                                    handleChange(e, 'tipo_vehiculo');
-                                }}
-                                value={formData.tipo_vehiculo}
+                                onChange={(e) => {handleChange(e, 'id_tipo_vehiculo')}}
+                                value={formData.id_tipo_vehiculo}
                             >
                                 {tipo_vehiculos[0].map((c) => (
                                     <option key={c.id} value={c.id}>
