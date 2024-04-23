@@ -4,6 +4,7 @@ import { trabajoSchema } from "./trabajoSchema";
 import {loginSchema} from './loginSchema';
 import {reparacionSchema} from './reparacionSchema';
 import {vehiculoSchema} from './vehiculoSchema';
+import { serviceSchema } from "./serviceSchema";
 
 export {
     clienteSchema,
@@ -11,5 +12,6 @@ export {
     trabajoSchema,
     loginSchema,
     reparacionSchema,
-    vehiculoSchema
+    vehiculoSchema,
+    serviceSchema
 }

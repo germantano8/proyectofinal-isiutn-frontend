@@ -30,8 +30,6 @@ const ModalFormularioVehiculo = ({ element, value, props, mode, id }) => {
         try {
             let isValid;
             isValid = await vehiculoSchema.isValid(formData, { abortEarly: false });
-            console.log(isValid);
-            console.log(formData);
             if (isValid) {
                 if (mode === 'new') {
                     await insertData('vehiculo', formData);

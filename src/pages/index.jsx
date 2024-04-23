@@ -6,7 +6,8 @@ import Proyectos from './Proyectos/Proyectos'
 import ProyectoSingle from './ProyectoSingle/ProyectoSingle'
 import Reparaciones from './Reparaciones/Reparaciones'  
 import Metricas from './Metricas/Metricas'  
-import Vehiculos from './Vehiculos/Vehiculos'       
+import Vehiculos from './Vehiculos/Vehiculos'     
+import Servicios from './Servicios/Servicios'  
 
 export {
     Login,
@@ -17,5 +18,6 @@ export {
     ProyectoSingle,
     Reparaciones,
     Metricas,
-    Vehiculos
+    Vehiculos,
+    Servicios
 }

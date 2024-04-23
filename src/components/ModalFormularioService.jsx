@@ -1,9 +1,9 @@
 import {React, useState} from 'react';
 import {Button, Form, Modal} from 'react-bootstrap';
-import { reparacionSchema } from '../Validations';
+import { serviceSchema } from '../Validations';
 import { insertData, updateData, useGetData } from '../hooks';
 
-const ModalFormularioReparacion = ({element, value, props, mode, id}) => {
+const ModalFormularioService = ({element, value, props, mode, id}) => {
 
     const vehiculos = useGetData('vehiculo');
     const [formData, setFormData] = useState({
@@ -34,12 +34,13 @@ const ModalFormularioReparacion = ({element, value, props, mode, id}) => {
         try{
 
             let isValid;
-            isValid = await reparacionSchema.validate(formData, { abortEarly: false });
+            isValid = await serviceSchema.validate(formData, { abortEarly: false });
+            isValid = true
             if(isValid){
                 if(mode==='new'){
-                    await insertData('reparacion', formData);
+                    await insertData(element, formData);
                 }else{
-                    await updateData('reparacion', formData, id);
+                    await updateData('service', formData, id);
                 }
                 setShow(false);
                 window.location.reload();
@@ -64,41 +65,14 @@ const ModalFormularioReparacion = ({element, value, props, mode, id}) => {
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
 
-                    <Form.Group className="mb-3" name="id_reparacion">
-                        <Form.Label>ID REPARACION</Form.Label>
-                        <Form.Control type="text" 
+                    <Form.Group className="mb-3" name="id_service">
+                        <Form.Label>ID SERVICE</Form.Label>
+                        <Form.Control type="number"
                             placeholder="ID" 
-                            value={formData['id_reparacion']}
-                            name={'id_reparacion'}
+                            value={formData['id_service']}
+                            name={'id_service'}
                             onChange={handleChange}
                             disabled />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" name="fecha_desde">
-                        <Form.Label>FECHA DESDE</Form.Label>
-                        <Form.Control type="date" 
-                            placeholder="FECHA DESDE"
-                            value={formData['fecha_desde']}
-                            name={'fecha_desde'}
-                            onChange={(e)=>{handleChange(e, 'fecha_desde')}} />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" name="fecha_hasta">
-                        <Form.Label>FECHA HASTA</Form.Label>
-                        <Form.Control type="date" 
-                            placeholder="FECHA HASTA"
-                            value={formData['fecha_hasta']}
-                            name={'fecha_hasta'}
-                            onChange={(e)=>{handleChange(e, 'fecha_hasta')}} />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" name="comentarios">
-                        <Form.Label>COMENTARIOS</Form.Label>
-                        <Form.Control type="text" 
-                            placeholder="COMENTARIOS DE LA REPARACIÓN"
-                            value={formData['comentarios']}
-                            name={'comentarios'}
-                            onChange={(e)=>{handleChange(e, 'comentarios')}} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" name="patente">
@@ -114,6 +88,43 @@ const ModalFormularioReparacion = ({element, value, props, mode, id}) => {
                                 <option key={v.patente} value={v.patente}>{v.patente}</option>
                             ))}
                         </Form.Select>
+                    </Form.Group>
+
+
+                    <Form.Group className="mb-3" name="fecha">
+                        <Form.Label>FECHA</Form.Label>
+                        <Form.Control type="date" 
+                            placeholder="FECHA"
+                            value={formData['fecha']}
+                            name={'fecha'}
+                            onChange={(e)=>{handleChange(e, 'fecha')}} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" name="kilometraje">
+                        <Form.Label>KILOMETRAJE</Form.Label>
+                        <Form.Control type="number" 
+                            placeholder="KILOMETRAJE"
+                            value={formData['kilometraje']}
+                            name={'kilometraje'}
+                            onChange={(e)=>{handleChange(e, 'kilometraje')}} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" name="comentarios_ingreso">
+                        <Form.Label>COMENTARIOS DE INGRESO</Form.Label>
+                        <Form.Control type="text" 
+                            placeholder="COMENTARIOS INGRESO"
+                            value={formData['comentarios_ingreso']}
+                            name={'comentarios_ingreso'}
+                            onChange={(e)=>{handleChange(e, 'comentarios_ingreso')}} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" name="comentarios_salida">
+                        <Form.Label>COMENTARIOS DE SALIDA</Form.Label>
+                        <Form.Control type="text" 
+                            placeholder="COMENTARIOS SALIDA"
+                            value={formData['comentarios_salida']}
+                            name={'comentarios_salida'}
+                            onChange={(e)=>{handleChange(e, 'comentarios_salida')}} />
                     </Form.Group>
 
                     {errors.length>0 &&
@@ -141,4 +152,4 @@ const ModalFormularioReparacion = ({element, value, props, mode, id}) => {
     )
 }
 
-export default ModalFormularioReparacion
+export default ModalFormularioService

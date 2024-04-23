@@ -50,30 +50,33 @@ const ModalFormulario = ({element, value, props, mode, id}) => {
             let isValid;
             switch(element){
                 case "cliente":
-                    isValid = await clienteSchema.validate(formData, { abortEarly: false });
+                    isValid = await clienteSchema.isValid(formData, { abortEarly: false });
                     break;
                 case "proyecto":
-                    isValid = await proyectoSchema.validate(formData, { abortEarly: false });
+                    isValid = await proyectoSchema.isValid(formData, { abortEarly: false });
                     break;
                 default:
                     break;
             }
 
+            let res;
             if(isValid){
                 if(mode==='new'){
-                    await insertData(element, formData);
+                    res = await insertData(element, formData);
                 }else{
-                    await updateData(element, formData, id);
+                    res = await updateData(element, formData, id);
+                }
+                if(!res.ok){
+                    e.errors = ['Error al intentar agregar un nuevo elemento'];
+                    setErrors(e.errors || []);
                 }
                 setShow(false);
                 window.location.reload();
-            }else{
-                setErrors(e.errors || []);
             }
         }catch(e){
             setErrors(e.errors || []);
-        }
-    }
+        }
+    }
     
     return (
         <>
