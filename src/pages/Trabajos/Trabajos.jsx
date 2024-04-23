@@ -14,7 +14,7 @@ const Trabajos = () => {
         fecha_hasta:'',
         kilometraje:0,
         patente:'',
-        id_proyecto:'',
+        id_proyecto:0,
         dni_conductor:'',
         cuit_cliente:'',
     }
@@ -60,7 +60,7 @@ const Trabajos = () => {
                             <td>{t.fecha_desde}</td>
                             <td>{t.fecha_hasta}</td>
                             <td>{t.kilometraje}</td>
-                            <td>{t.cuit_cliente ? "Alquiler" : "Propio"}</td>
+                            <td>{t.cuit_cliente === '11111111111' ? "Propio" : "Alquiler"}</td>
                             <td>
                                 <ModalFormularioTrabajo value={<i class="bi bi-pencil"></i>} props={trabajos.find((objeto) => Object.values(objeto)[0] === t.id_trabajo)} mode={'update'} id={t.id_trabajo}/>
                                 &ensp;
