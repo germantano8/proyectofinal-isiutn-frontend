@@ -29,8 +29,8 @@ const Servicios = () => {
                   </button>
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                  <iframe title="services" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=fbf42d14-8985-430d-b28f-8f9efa9f03df&autoAuth=true&embeddedDemo=true" frameborder="0" allowFullScreen="true"></iframe>
+                  <div class="accordion-body" style={{ padding: '-10px' }}>
+                  <iframe title="services" width="900" height="550" src="https://app.powerbi.com/reportEmbed?reportId=fbf42d14-8985-430d-b28f-8f9efa9f03df&autoAuth=true&embeddedDemo=true" frameborder="0" allowFullScreen="true"></iframe>
                   </div>
                 </div>
               </div>
