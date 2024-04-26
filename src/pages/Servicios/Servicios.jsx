@@ -21,6 +21,20 @@ const Servicios = () => {
     <>
         <div className='table-responsive col-12 col-md-6 col-lg-9'>
           <h1 className='text-left'>Services</h1>
+          <div className="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Ver próximos services a realizar
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body" style={{ padding: '-10px' }}>
+                  <iframe title="services" width="900" height="550" src="https://app.powerbi.com/reportEmbed?reportId=fbf42d14-8985-430d-b28f-8f9efa9f03df&autoAuth=true&embeddedDemo=true" frameborder="0" allowFullScreen="true"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
           <br />
           <ModalFormularioService element={"service"} value={"Nuevo service"} props={props} mode={'new'}/>
           <br/><br/>

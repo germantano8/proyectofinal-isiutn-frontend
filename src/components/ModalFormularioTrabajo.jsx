@@ -12,7 +12,6 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
     const [formData, setFormData] = useState({ ...props });
     const [errors, setErrors] = useState([]);
     const [show, setShow] = useState(false);
-    const [tipoTrabajo, setTipoTrabajo] = useState('');
 
     const handleShow = () => setShow(true);
     const handleClose = () => {
@@ -32,7 +31,8 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            let isValid = await trabajoSchema.validate(formData, { abortEarly: false });
+            let isValid 
+            isValid = await trabajoSchema.validate(formData, { abortEarly: false });
             if(isValid){
                 if(mode==='new'){
                     await insertData('trabajo', formData);
@@ -49,16 +49,6 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
         }
     };
 
-    const handleTipoTrabajoChange = (e) => {
-        setTipoTrabajo(e.target.value);
-        // Resetear el campo correspondiente al cambiar el tipo de trabajo
-        setFormData({
-            ...formData,
-            id_proyecto: '',
-            cuit_cliente: '',
-        });
-    };
-
     return (
         <>
             <Button className="btn btn-orange" onClick={handleShow}>
@@ -71,61 +61,6 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3">
-                        <Form.Label>TIPO DE TRABAJO</Form.Label>
-                            <Form.Check
-                                type="radio"
-                                label="Propio"
-                                name="tipoTrabajo"
-                                value="PROPIO"
-                                checked={tipoTrabajo === 'PROPIO'}
-                                onChange={handleTipoTrabajoChange}
-                            />
-                            <Form.Check
-                                type="radio"
-                                label="Alquiler"
-                                name="tipoTrabajo"
-                                value="ALQUILER"
-                                checked={tipoTrabajo === 'ALQUILER'}
-                                onChange={handleTipoTrabajoChange}
-                            />
-                        </Form.Group>
-
-                        {tipoTrabajo === 'PROPIO' && (
-                            <Form.Group className="mb-3" name="id_proyecto">
-                            <Form.Label>PROYECTO</Form.Label>
-                           <Form.Select
-                               title="Seleccionar proyecto"
-                               name={'id_proyecto'}
-                               onChange={(e) => { handleChange(e, 'id_proyecto') }}
-                               value={formData.id_proyecto}
-                           >
-                               <option value="" disabled hidden>Seleccionar</option>
-                               {proyectos[0].map((v) => (
-                                   <option key={v.id} value={v.id}>{v.id}-{v.nombre}</option>
-                               ))}
-                           </Form.Select>
-                       </Form.Group>
-                        )}
-
-                        {tipoTrabajo === 'ALQUILER' && (
-                            <Form.Group className="mb-3" name="cuit_cliente">
-                                <Form.Label>CLIENTE</Form.Label>
-                                <Form.Select
-                                    title="Seleccionar cliente"
-                                    onChange={handleChange}
-                                    value={formData.cuit_cliente}
-                                    name="cuit_cliente"
-                                    disabled={!tipoTrabajo}
-                                >
-                                    {clientes[0].map((c) => (
-                                        <option key={c.cuit} value={c.cuit}>
-                                            {c.cuit} - {c.razon_social}
-                                        </option>
-                                    ))}
-                                </Form.Select>
-                            </Form.Group>
-                        )}
 
                        <Form.Group className="mb-3" name="id_trabajo">
                         <Form.Label>ID TRABAJO</Form.Label>
@@ -163,8 +98,7 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
                             name={'kilometraje'}
                             onChange={(e)=>{handleChange(e, 'kilometraje')}} />
                     </Form.Group>
-
-
+            
                     <Form.Group className="mb-3" name="patente">
                          <Form.Label>PATENTE DEL VEHÍCULO</Form.Label>
                         <Form.Select
@@ -194,6 +128,46 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
                             ))}
                         </Form.Select>
                     </Form.Group>
+
+                    <Form.Group className="mb-3" name="cuit_cliente">
+                         <Form.Label>CLIENTE</Form.Label>
+                        <Form.Select
+                            title="Seleccionar proyecto"
+                            name={'cuit_cliente'}
+                            onChange={(e) => { handleChange(e, 'cuit_cliente') }}
+                            value={formData.cuit_cliente}
+                        >
+                            <option value="" disabled hidden>Seleccionar</option>
+                            {clientes[0].map((v) => (
+                                <option key={v.cuit} value={v.cuit}>{v.razon_social}</option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" name="id_proyecto">
+                         <Form.Label>PROYECTO</Form.Label>
+                        <Form.Select
+                            title="Seleccionar conductor"
+                            name={'id_proyecto'}
+                            onChange={(e) => { handleChange(e, 'id_proyecto') }}
+                            value={formData.id_proyecto}
+                        >
+                            <option value="" disabled hidden>Seleccionar</option>
+                            {proyectos[0].map((v) => (
+                                <option key={v.id} value={v.id}>{v.nombre}</option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+
+                    {errors.length>0 &&
+                        <div className="alert alert-danger">
+                            { errors.map((e) => (
+                                    <div>
+                                        {e}
+                                    </div>
+                                ))}
+                        </div>
+                    } 
 		
                         <Button variant="secondary" onClick={handleClose}>
                             Cerrar

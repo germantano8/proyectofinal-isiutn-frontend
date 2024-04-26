@@ -38,6 +38,7 @@ const EditDelete = ({ data, element, id }) => {
                     &ensp;
                     <button className='btn btn-danger' onClick={() => { deleteItem(element, id) }}><i className="bi bi-trash3"></i></button>
                 </>
+                
             ) : element === 'service' ? ( 
                 <>
                     <ModalFormularioService
