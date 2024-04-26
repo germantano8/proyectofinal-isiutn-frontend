@@ -7,6 +7,6 @@ export const trabajoSchema = yup.object().shape({
     kilometraje: yup.number().integer('El kilometraje debe ser un número entero').positive('El kilometraje debe ser un número positivo'),
     patente: yup.string().matches(/^[A-Z0-9]{6,7}$/, 'Debe seleccionar una patente'),
     id_proyecto: yup.number().nullable(),
-    dni_conductor: yup.string().nullable().matches(/^[0-9]{8}$/, 'Debe seleccionar un'),
+    dni_conductor: yup.string().nullable().matches(/^[0-9]{8}$/, 'Debe seleccionar un conductor'),
     cuit_cliente: yup.string().nullable(),
 });
