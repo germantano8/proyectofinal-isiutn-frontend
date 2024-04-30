@@ -88,7 +88,7 @@ const Proyectos = () => {
             <br />
             <ModalFormulario element={'proyecto'} value={"Nuevo proyecto"} props={props} mode={'new'}/>
             &nbsp;
-            <button className="btn btn-orange" onClick={() => exportToCSV(sortedProyectos, 'proyectos.csv')}>
+            <button className="btn btn-orange" onClick={() => exportToCSV(proyectos, 'proyectos.csv')}>
                 Exportar a CSV
             </button>
             <br/><br/>

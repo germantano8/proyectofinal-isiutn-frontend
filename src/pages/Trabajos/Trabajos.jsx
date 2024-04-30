@@ -36,6 +36,24 @@ const Trabajos = () => {
         cuit_cliente:'',
     }
 
+    const exportToCSV = (data, filename) => {
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "ID,Patente,Fecha desde,Fecha hasta,Kilometraje,Tipo trabajo,Cliente/Proyecto\n"; // Encabezados de las columnas
+       
+        data.forEach(trabajo => {
+           csvContent += `${trabajo.id_trabajo},${trabajo.patente},${trabajo.fecha_desde},${trabajo.fecha_hasta},${trabajo.kilometraje},${trabajo.cuit_cliente === '00000000000' ? "Propio" : "Alquiler"},${trabajo.cuit_cliente === '00000000000' ? trabajo.id_proyecto : trabajo.cuit_cliente}\n`;
+        });
+       
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", filename);
+        document.body.appendChild(link); // Requerido para Firefox
+       
+        link.click(); // Esto descarga el archivo
+        document.body.removeChild(link); // Limpiar
+    };
+
     const deleteItem = async (id) => {
         await deleteData('trabajo', id);
         window.location.reload();
@@ -47,6 +65,11 @@ const Trabajos = () => {
             <h2 className='text-left'>Trabajos</h2>
 
             <ModalFormularioTrabajo value={"Nuevo trabajo"} props={props} mode={'new'}/>
+            &nbsp;
+            <button className="btn btn-orange" onClick={() => exportToCSV(trabajos, 'trabajos.csv')}>
+                Exportar a CSV
+            </button>
+            <br/><br/>
 
             <table className="table table-striped">
                 <thead>
