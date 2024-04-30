@@ -10,7 +10,7 @@ const Clientes = () => {
   const [clientes, loading] = useGetData('cliente');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({
-    anio: {key: 'razon_social', direction: 'ascending'},
+    razon_social: {key: 'razon_social', direction: 'ascending'},
   });
 
   // Acá se define la estructura del objeto que vamos a estar trabajando en esta página
@@ -67,7 +67,7 @@ const Clientes = () => {
       <br />
       <ModalFormulario element={"cliente"} value={"Nuevo cliente"} props={props} mode={'new'}/>
       &nbsp;
-      <button className="btn btn-orange" onClick={() => exportToCSV(clientes, 'clientes.csv')}>
+      <button className="btn btn-orange" onClick={() => exportToCSV(filteredClientes, 'clientes.csv')}>
         Exportar a CSV
       </button>
       <br/><br/>

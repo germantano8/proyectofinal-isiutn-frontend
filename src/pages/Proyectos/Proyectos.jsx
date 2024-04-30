@@ -55,6 +55,7 @@ const Proyectos = () => {
         }
         return 0;
     });
+    
     const filteredProyectos = proyectos.filter(proyecto =>
         proyecto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) || proyecto.ubicacion.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -88,7 +89,7 @@ const Proyectos = () => {
             <br />
             <ModalFormulario element={'proyecto'} value={"Nuevo proyecto"} props={props} mode={'new'}/>
             &nbsp;
-            <button className="btn btn-orange" onClick={() => exportToCSV(proyectos, 'proyectos.csv')}>
+            <button className="btn btn-orange" onClick={() => exportToCSV(filteredProyectos, 'proyectos.csv')}>
                 Exportar a CSV
             </button>
             <br/><br/>
@@ -110,7 +111,7 @@ const Proyectos = () => {
                     <th scope="col">Nombre
                         <a onClick={() => setSortConfig({ key: 'nombre', direction: 'ascending' })}><i className="bi bi-arrow-up-short"></i></a>
                         <a onClick={() => setSortConfig({ key: 'nombre', direction: 'descending' })}><i className="bi bi-arrow-down-short"></i></a>
-                        </th>
+                    </th>
                     <th scope="col">Ubicacion</th>
                     <th scope="col">
                         Fecha de finalización

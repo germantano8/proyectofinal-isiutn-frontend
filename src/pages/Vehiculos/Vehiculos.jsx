@@ -8,7 +8,6 @@ const Vehiculos = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({
       anio: {key: 'anio', direction: 'ascending'},
-      kilometraje: {key: 'kilometraje', direction: 'ascending'},
   });
   
   const props = {
@@ -60,7 +59,7 @@ const Vehiculos = () => {
       <br />
       <ModalFormularioVehiculo element={"vehiculo"} value={"Nuevo vehículo"} props={props} mode={'new'}/>
       &nbsp;
-      <button className="btn btn-orange" onClick={() => exportToCSV(vehiculos, 'vehiculos.csv')}>
+      <button className="btn btn-orange" onClick={() => exportToCSV(filteredVehiculos, 'vehiculos.csv')}>
         Exportar a CSV
       </button>
       <br/><br/>
