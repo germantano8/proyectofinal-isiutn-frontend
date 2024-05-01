@@ -1,28 +1,10 @@
-import {React, useEffect, useState} from 'react'
+import {React, useState} from 'react'
 import { deleteData, useGetData } from '../../hooks';
 import {ModalFormularioTrabajo, Loading} from '../../components/'
 
 const Trabajos = () => {
     const [trabajos, loadingTrabajos] = useGetData('trabajo');
-    const [clientes] = useGetData('cliente'); // Suponiendo que 'cliente' es la ruta correcta
-    const [proyectos] = useGetData('proyecto'); // Suponiendo que 'proyecto' es la ruta correcta
-    const [clienteMap, setClienteMap] = useState({});
-    const [proyectoMap, setProyectoMap] = useState({});
     const [searchTerm, setSearchTerm] = useState('');
-
-    useEffect(() => {
-        const clienteMap = {};
-        clientes.forEach(cliente => {
-            clienteMap[cliente.cuit] = cliente.razon_social;
-        });
-        setClienteMap(clienteMap);
-
-        const proyectoMap = {};
-        proyectos.forEach(proyecto => {
-            proyectoMap[proyecto.id] = proyecto.nombre;
-        });
-        setProyectoMap(proyectoMap);
-    }, [clientes, proyectos]);
 
     // Acá se define la estructura del objeto que vamos a estar trabajando en esta página
     const props={
@@ -41,8 +23,8 @@ const Trabajos = () => {
     };
     const filteredTrabajos = trabajos.filter(trabajo =>
         trabajo.patente.toLowerCase().includes(searchTerm.toLowerCase())
-        || clienteMap[trabajo.cuit_cliente].toLowerCase().includes(searchTerm.toLowerCase())
-        || proyectoMap[trabajo.id_proyecto].toLowerCase().includes(searchTerm.toLowerCase())
+        || trabajo.cliente.razon_social.toLowerCase().includes(searchTerm.toLowerCase())
+        || trabajo.proyecto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const exportToCSV = (data, filename) => {
@@ -50,7 +32,7 @@ const Trabajos = () => {
         csvContent += "ID,Patente,Fecha desde,Fecha hasta,Tipo trabajo,Cliente/Proyecto\n"; // Encabezados de las columnas
        
         data.forEach(trabajo => {
-           csvContent += `${trabajo.id_trabajo},${trabajo.patente},${trabajo.fecha_desde},${trabajo.fecha_hasta},${trabajo.cuit_cliente === '00000000000' ? "Propio" : "Alquiler"},${trabajo.cuit_cliente === '00000000000' ? "Proyecto: " + proyectoMap[trabajo.id_proyecto] : clienteMap[trabajo.cuit_cliente]}\n`;
+           csvContent += `${trabajo.id_trabajo},${trabajo.patente},${trabajo.fecha_desde},${trabajo.fecha_hasta},${trabajo.cuit_cliente === '00000000000' ? "Propio" : "Alquiler"},${trabajo.cuit_cliente === '00000000000' ? "Proyecto: " + trabajo.proyecto.nombre : trabajo.cliente.razon_social}\n`;
         });
        
         const encodedUri = encodeURI(csvContent);
@@ -113,7 +95,7 @@ const Trabajos = () => {
                                 <td>{t.fecha_desde}</td>
                                 <td>{t.fecha_hasta}</td>
                                 <td>{t.cuit_cliente === '00000000000' ? "Propio" : "Alquiler"}</td>
-                                <td>{t.cuit_cliente === '00000000000' ? "Proyecto: " + proyectoMap[t.id_proyecto] : clienteMap[t.cuit_cliente]}</td> 
+                                <td>{t.cuit_cliente === '00000000000' ? "Proyecto: " + t.proyecto.nombre : t.cliente.razon_social}</td> 
                                 <td>
                                     <ModalFormularioTrabajo value={<i class="bi bi-pencil"></i>} props={trabajos.find((objeto) => Object.values(objeto)[0] === t.id_trabajo)} mode={'update'} id={t.id_trabajo}/>
                                     &ensp;
