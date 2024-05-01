@@ -83,7 +83,7 @@ const Trabajos = () => {
             <input
                 type="text"
                 className="form-control"
-                placeholder="Buscar cliente por patente, cliente o proyecto"
+                placeholder="Buscar trabajo por patente, cliente o proyecto"
                 value={searchTerm}
                 onChange={handleSearch}
             />

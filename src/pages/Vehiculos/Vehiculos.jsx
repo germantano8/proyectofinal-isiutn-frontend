@@ -67,7 +67,7 @@ const Vehiculos = () => {
       <input
         type="text"
         className="form-control"
-        placeholder="Buscar cliente por patente o tipo de vehículo"
+        placeholder="Buscar vehículo por patente o tipo de vehículo"
         value={searchTerm}
         onChange={handleSearch}
       />

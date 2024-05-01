@@ -97,7 +97,7 @@ const Proyectos = () => {
             <input
                 type="text"
                 className="form-control"
-                placeholder="Buscar cliente por nombre o ubicación"
+                placeholder="Buscar proyecto por nombre o ubicación"
                 value={searchTerm}
                 onChange={handleSearch}
             />
