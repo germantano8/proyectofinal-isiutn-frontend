@@ -71,7 +71,8 @@ const Trabajos = () => {
 
     return (
         <div className='table-responsive col-12 col-md-6 col-lg-9'>
-            <h2 className='text-left'>Trabajos</h2>
+            <h1 className='text-left'>Trabajos</h1>
+            <br />
 
             <ModalFormularioTrabajo value={"Nuevo trabajo"} props={props} mode={'new'}/>
             &nbsp;
