@@ -5,10 +5,10 @@ import { insertData, updateData, useGetData } from '../hooks/';
 import axios from 'axios';
 
 const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
-    const conductores = useGetData('conductor');
-    const clientes = useGetData('cliente');
-    const tipoVehiculo = useGetData('tipovehiculo');
+    const [conductores, setConductores] = useState([]);
     const [vehiculos, setVehiculos] = useState([]);
+    const tipoVehiculo = useGetData('tipovehiculo');
+    const clientes = useGetData('cliente');
     const proyectos = useGetData('proyecto');
 
     const [formData, setFormData] = useState({ ...props });
@@ -20,6 +20,8 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
         setShow(false);
         setFormData({ ...props });
         setErrors([]);
+        setVehiculos([]);
+        setConductores([]);
     };
 
     const handleChange = (e) => {
@@ -34,12 +36,12 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
         const tipoMaquina = e.target.value;
         try {
             // Realizar una solicitud a la API para obtener las patentes correspondientes al tipo de máquina seleccionado
-            const response = await axios.get(`${process.env.REACT_APP_URL}/api/vehiculo/tipoVehiculo/${tipoMaquina}`,
+            const response = await axios.get(`${process.env.REACT_APP_URL}/api/trabajo/filtrar?tipo_vehiculo=${tipoMaquina}&fecha_desde=${formData.fecha_desde}&fecha_hasta=${formData.fecha_hasta}`,
                 { withCredentials: true ,
                 headers:{'Content-Type': 'application/json'}});
             const data = response.data; // Suponiendo que la respuesta de la API es un arreglo de patentes
-            setVehiculos(data); // Actualizar el estado de patentes con los datos obtenidos
-            console.log(data)
+            setVehiculos(data.patentes); // Actualizar el estado de patentes con los datos obtenidos
+            setConductores(data.conductores);
         } catch (error) {
             console.error('Error al obtener las patentes:', error);
         }
@@ -137,12 +139,14 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
                                 onChange={(e) => { handleChange(e, 'patente') }}
                                 value={formData.patente}
                             >
-                                <option value="" disabled hidden>Seleccionar</option>
-                                {vehiculos && vehiculos[0] ? 
-                                    vehiculos.map((v) => (
-                                        <option key={v} value={v}>{v}</option>
-                                    )) : <option value="" disabled hidden>Seleccionar</option>
-                                }
+                                {vehiculos && vehiculos.length > 0 ? (
+                                    <option value="" disabled hidden>Seleccionar</option>
+                                ) : (
+                                    <option value="" disabled selected>No disponibles en ese rango de fechas</option>
+                                )}
+                                {vehiculos && vehiculos.map((v) => (
+                                    <option key={v} value={v}>{v}</option>
+                                ))}
                             </Form.Select>
                         </Form.Group>
 
@@ -155,8 +159,13 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
                                 value={formData.dni_conductor}
                             >
                                 <option value="" disabled hidden>Seleccionar</option>
-                                {conductores[0].map((v) => (
-                                    <option key={v.dni} value={v.dni}>{v.nombre} {v.apellido}</option>
+                                {conductores && conductores.length > 0 ? (
+                                    <option value="" disabled hidden>Seleccionar</option>
+                                ) : (
+                                    <option value="" disabled selected>No disponibles en ese rango de fechas</option>
+                                )}
+                                {conductores && conductores.map((c) => (
+                                    <option key={c} value={c}>{c}</option>
                                 ))}
                             </Form.Select>
                         </Form.Group>
