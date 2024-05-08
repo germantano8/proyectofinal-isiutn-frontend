@@ -164,8 +164,8 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
                                 ) : (
                                     <option value="" disabled selected>No disponibles en ese rango de fechas</option>
                                 )}
-                                {conductores && conductores.map((c) => (
-                                    <option key={c} value={c}>{c}</option>
+                                {conductores && conductores.map((c, index) => (
+                                    <option key={index} value={c.dni}>{c.nombre} {c.apellido}</option>
                                 ))}
                             </Form.Select>
                         </Form.Group>
