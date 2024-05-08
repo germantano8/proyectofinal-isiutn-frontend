@@ -13,7 +13,8 @@ import {
   Metricas,
   Vehiculos,
   Servicios,
-  Trabajos 
+  Trabajos,
+  Calendario
 } from './pages'
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
               <Route path="/servicios" element={<Servicios />} />
               <Route path="/trabajos" element={<Trabajos />} />
               <Route path="/clientes" element={<Clientes />} />
+              <Route path="/calendario" element={<Calendario />} />
             </>
           ) : 
             <Route path='*' element={<Navigate to='/login'></Navigate>}></Route>
