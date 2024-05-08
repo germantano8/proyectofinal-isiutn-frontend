@@ -8,6 +8,7 @@ import Reparaciones from './Reparaciones/Reparaciones'
 import Metricas from './Metricas/Metricas'  
 import Vehiculos from './Vehiculos/Vehiculos'     
 import Servicios from './Servicios/Servicios'  
+import Calendario from './Calendario/Calendario'
 
 export {
     Login,
@@ -19,5 +20,6 @@ export {
     Reparaciones,
     Metricas,
     Vehiculos,
-    Servicios
+    Servicios,
+    Calendario
 }

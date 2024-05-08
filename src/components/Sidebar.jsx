@@ -16,6 +16,7 @@ return (
             <a href="/" className={pathname === "/" ? `${className} active` : className}>Overview</a>
             <a href="/proyectos" className={pathname === "/proyectos" ? `${className} active` : className}>Proyectos</a>
             <a href="/trabajos" className={pathname === "/trabajos" ? `${className} active` : className}>Trabajos</a>
+            <a href="/calendario" className={pathname === "/calendario" ? `${className} active` : className}>Calendario</a>
             <a href="/reparaciones" className={pathname === "/reparaciones" ? `${className} active` : className}>Reparaciones</a>
             <a href="/servicios" className={pathname === "/servicios" ? `${className} active` : className}>Services</a>
             <a href="/vehiculos" className={pathname === "/vehiculos" ? `${className} active` : className}>Vehículos</a>
