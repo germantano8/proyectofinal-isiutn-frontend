@@ -5,7 +5,10 @@ import {ModalFormularioTrabajo, Loading} from '../../components/'
 const Trabajos = () => {
     const [trabajos, loadingTrabajos] = useGetData('trabajo');
     const [searchTerm, setSearchTerm] = useState('');
-
+    const [sortConfig, setSortConfig] = useState({
+        fecha_desde: {key: 'fecha_desde', direction: 'ascending'},
+        fecha_hasta: {key: 'fecha_hasta', direction: 'ascending'},
+      });
     // Acá se define la estructura del objeto que vamos a estar trabajando en esta página
     const props={
         id_trabajo:'',
@@ -50,6 +53,17 @@ const Trabajos = () => {
         window.location.reload();
         console.log(id)
     }
+    
+    
+  const sortedTrabajos = trabajos.sort((a, b) => {
+    if (a[sortConfig.key] < b[sortConfig.key]) {
+       return sortConfig.direction === 'ascending' ? -1 : 1;
+    }
+    if (a[sortConfig.key] > b[sortConfig.key]) {
+       return sortConfig.direction === 'ascending' ? 1 : -1;
+    }
+    return 0;
+  });
 
     return (
         <div className='table-responsive col-12 col-md-6 col-lg-9'>
@@ -76,8 +90,14 @@ const Trabajos = () => {
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Patente</th>
-                    <th scope="col">Fecha desde</th>
-                    <th scope="col">Fecha hasta</th>
+                    <th scope="col">Fecha desde
+                    <a onClick={() => setSortConfig({ key: 'fecha_desde', direction: 'ascending' })}><i className="bi bi-arrow-up-short"></i></a>
+                    <a onClick={() => setSortConfig({ key: 'fecha_desde', direction: 'descending' })}><i className="bi bi-arrow-down-short"></i></a>
+                    </th>
+                    <th scope="col">Fecha hasta
+                    <a onClick={() => setSortConfig({ key: 'fecha_hasta', direction: 'ascending' })}><i className="bi bi-arrow-up-short"></i></a>
+                    <a onClick={() => setSortConfig({ key: 'fecha_hasta', direction: 'descending' })}><i className="bi bi-arrow-down-short"></i></a>
+                    </th>
                     <th scope="col">Tipo trabajo</th>
                     <th scope="col">Cliente/Proyecto</th> {/* Añade esta línea */}
                 </tr>

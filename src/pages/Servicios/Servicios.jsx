@@ -1,4 +1,4 @@
-import {React} from 'react'
+import {React, useState} from 'react'
 import {useGetData} from '../../hooks/getData'
 import Loading from '../../components/Loading'
 import EditDelete from '../../components/EditDelete'
@@ -7,7 +7,10 @@ import ModalFormularioService from '../../components/ModalFormularioService'
 const Servicios = () => {
 
   const [servicios, loading] = useGetData('service');
-
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortConfig, setSortConfig] = useState({
+    fecha: {key: 'fecha', direction: 'ascending'},
+  })
   const props={
     id_service:'',
     fecha:'',
@@ -17,6 +20,23 @@ const Servicios = () => {
     comentarios_salida:''
 }
 
+const sortedServicios = servicios.sort((a, b) => {
+  if (a[sortConfig.key] < b[sortConfig.key]) {
+     return sortConfig.direction === 'ascending' ? -1 : 1;
+  }
+  if (a[sortConfig.key] > b[sortConfig.key]) {
+     return sortConfig.direction === 'ascending' ? 1 : -1;
+  }
+  return 0;
+});
+
+const handleSearch = event => {
+  setSearchTerm(event.target.value);
+};
+
+const filteredServicios = servicios.filter(service =>
+  service.patente.includes(searchTerm)
+);
   return (
     <>
         <div className='table-responsive col-12 col-md-6 col-lg-9'>
@@ -39,11 +59,22 @@ const Servicios = () => {
           <ModalFormularioService element={"service"} value={"Nuevo service"} props={props} mode={'new'}/>
           <br/><br/>
 
+          <input
+          type="text"
+          className="form-control"
+          placeholder="Buscar service por patente"
+          value={searchTerm}
+          onChange={handleSearch}
+          />
+
           <table className="table table-striped">
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                    <th scope="col">Fecha</th>
+                    <th scope="col">Fecha
+                    <a onClick={() => setSortConfig({ key: 'fecha', direction: 'ascending' })}><i className="bi bi-arrow-up-short"></i></a>
+                    <a onClick={() => setSortConfig({ key: 'fecha', direction: 'descending' })}><i className="bi bi-arrow-down-short"></i></a>
+                    </th>
                     <th scope="col">Kilometraje</th>
                     <th scope="col">Patente</th>
                     <th scope="col">Comentarios ingreso</th>
@@ -55,7 +86,7 @@ const Servicios = () => {
 
             <tbody>
                 {
-                  servicios.map((r) => {
+                  filteredServicios.map((r) => {
                     return (
                       <tr key={r.id}>
                         <td>{r.id}</td>
