@@ -49,7 +49,9 @@ const Reparaciones = () => {
             placeholder="Buscar reparacion por patente"
             value={searchTerm}
             onChange={handleSearch}
-          /> 
+          />
+
+          <br/>
 
           <table className="table table-striped">
             <thead>

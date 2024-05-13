@@ -67,6 +67,8 @@ const filteredServicios = servicios.filter(service =>
           onChange={handleSearch}
           />
 
+          <br/>
+
           <table className="table table-striped">
             <thead>
               <tr>
