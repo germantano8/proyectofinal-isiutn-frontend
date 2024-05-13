@@ -9,6 +9,10 @@ const location = useLocation();
 const {pathname} = location;
 const className = "list-group-item list-group-item-action"
 
+const handleLogout = () => {
+    utils.cookies.remove('token');
+  };
+
 return (
     <div className="col-12 col-md-6 col-lg-3">
         <img src={image} className='img-thumbnail' alt="logo controlmaq"/>
@@ -23,7 +27,7 @@ return (
             <a href="/vehiculos" className={pathname === "/vehiculos" ? `${className} active` : className}>Vehículos</a>
             <a href="/clientes" className={pathname === "/clientes" ? `${className} active` : className}>Clientes</a>
             <a href="/metricas" className={pathname === "/metricas" ? `${className} active` : className}>Metricas de uso</a>
-            <a href="/" onClick={utils.cookies.remove('token')} className={className}>Cerrar sesión</a>
+            <a href="/" onClick={handleLogout} className={` ${className} list-group-item-danger `}>Cerrar sesión</a>
         </div>
     </div>
 )
