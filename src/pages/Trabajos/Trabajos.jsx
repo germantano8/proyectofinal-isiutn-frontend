@@ -102,6 +102,7 @@ const Trabajos = () => {
                     </th>
                     <th scope="col">Tipo trabajo</th>
                     <th scope="col">Cliente/Proyecto</th> {/* Añade esta línea */}
+                    <th scope="col">Acciones</th>
                 </tr>
                 </thead>
 

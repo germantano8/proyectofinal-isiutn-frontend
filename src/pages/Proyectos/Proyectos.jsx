@@ -66,7 +66,7 @@ const Proyectos = () => {
 
     const exportToCSV = (data, filename) => {
         let csvContent = "data:text/csv;charset=utf-8,";
-        csvContent += "Patente,Año,Kilometraje,Tipo de vehículo\n"; // Encabezados de las columnas
+        csvContent += "ID,Año,Kilometraje,Tipo de vehículo, Fecha inicio, Fecha fin estimada, Fecha fin real, Observaciones\n"; // Encabezados de las columnas
        
         data.forEach(proyecto => {
             csvContent += `${proyecto.id},${proyecto.ubicacion},${proyecto.nombre},${proyecto.fecha_inicio},${proyecto.fecha_fin_estimada},${proyecto.fecha_fin_real},${proyecto.observaciones}\n`;

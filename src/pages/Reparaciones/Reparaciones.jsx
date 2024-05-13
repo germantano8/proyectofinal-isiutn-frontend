@@ -67,6 +67,7 @@ const Reparaciones = () => {
                       <a onClick={() => setSortConfig({ key: 'fecha_hasta', direction: 'descending' })}><i className="bi bi-arrow-down-short"></i></a>
                     </th>
                     <th scope="col">Patente</th>
+                    <th scope="col">Acciones</th>
               </tr>
             </thead>
 

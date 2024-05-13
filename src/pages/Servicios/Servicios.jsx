@@ -81,6 +81,7 @@ const filteredServicios = servicios.filter(service =>
                     <th scope="col">Patente</th>
                     <th scope="col">Comentarios ingreso</th>
                     <th scope="col">Comentarios salida</th>
+                    <th scope="col">Acciones</th>
               </tr>
             </thead>
 

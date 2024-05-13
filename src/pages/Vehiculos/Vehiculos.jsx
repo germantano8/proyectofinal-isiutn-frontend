@@ -89,6 +89,7 @@ const Vehiculos = () => {
                   <a onClick={() => setSortConfig({ key: 'kilometraje', direction: 'descending' })}><i className="bi bi-arrow-down-short"></i></a>
                   </th>
                 <th scope="col">Tipo de vehículo</th>
+                <th scope="col">Acciones</th>
           </tr>
         </thead>
 

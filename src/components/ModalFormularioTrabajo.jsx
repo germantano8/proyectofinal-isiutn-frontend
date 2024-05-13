@@ -158,7 +158,6 @@ const ModalFormularioTrabajo = ({ value, props, mode, id }) => {
                                 onChange={(e) => { handleChange(e, 'dni_conductor') }}
                                 value={formData.dni_conductor}
                             >
-                                <option value="" disabled hidden>Seleccionar</option>
                                 {conductores && conductores.length > 0 ? (
                                     <option value="" disabled hidden>Seleccionar</option>
                                 ) : (
