@@ -35,7 +35,7 @@ const handleSearch = event => {
 };
 
 const filteredServicios = servicios.filter(service =>
-  service.patente.includes(searchTerm)
+  service.patente.toLowerCase().includes(searchTerm)
 );
   return (
     <>

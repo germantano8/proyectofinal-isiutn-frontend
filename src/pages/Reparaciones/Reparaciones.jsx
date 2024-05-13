@@ -20,22 +20,20 @@ const Reparaciones = () => {
     comentarios:'',
     patente:''
 }
-const sortedReparaciones = reparaciones.sort((a, b) => {
-  if (a[sortConfig.key] < b[sortConfig.key]) {
-     return sortConfig.direction === 'ascending' ? -1 : 1;
-  }
-  if (a[sortConfig.key] > b[sortConfig.key]) {
-     return sortConfig.direction === 'ascending' ? 1 : -1;
-  }
-  return 0;
-});
-const handleSearch = event => {
-  setSearchTerm(event.target.value);
-};
+  const sortedReparaciones = reparaciones.sort((a, b) => {
+    if (a[sortConfig.key] < b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? -1 : 1;
+    }
+    if (a[sortConfig.key] > b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? 1 : -1;
+    }
+    return 0;
+  });
+  const handleSearch = event => {
+    setSearchTerm(event.target.value);
+  };
 
-const filteredReparaciones = reparaciones.filter(reparacion =>
-  reparaciones.patente || reparacion.patente.includes(searchTerm)
-);
+  const filteredReparaciones = reparaciones.filter(reparacion => reparacion.patente.toLowerCase().includes(searchTerm));
 
   return (
     <>
