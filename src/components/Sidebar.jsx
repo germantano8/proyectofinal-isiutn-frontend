@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLocation } from "react-router-dom";
 import image from './logo-controlmaq.png'
+import * as utils from '../utils/utils'
 
 const Sidebar = () => {
 
@@ -22,6 +23,7 @@ return (
             <a href="/vehiculos" className={pathname === "/vehiculos" ? `${className} active` : className}>Vehículos</a>
             <a href="/clientes" className={pathname === "/clientes" ? `${className} active` : className}>Clientes</a>
             <a href="/metricas" className={pathname === "/metricas" ? `${className} active` : className}>Metricas de uso</a>
+            <a href="/" onClick={utils.cookies.remove('token')} className={className}>Cerrar sesión</a>
         </div>
     </div>
 )
