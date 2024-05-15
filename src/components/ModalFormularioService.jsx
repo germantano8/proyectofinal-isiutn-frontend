@@ -2,6 +2,7 @@ import {React, useState} from 'react';
 import {Button, Form, Modal, Dropdown} from 'react-bootstrap';
 import { serviceSchema } from '../Validations';
 import { insertData, updateData, useGetData } from '../hooks';
+import axios from 'axios';
 
 const ModalFormularioService = ({element, value, props, mode, id}) => {
 
@@ -42,6 +43,10 @@ const ModalFormularioService = ({element, value, props, mode, id}) => {
                 }else{
                     await updateData('service', formData, id);
                 }
+                await axios.patch(`${process.env.REACT_APP_URL}/api/vehiculo/updateKm/${formData.patente}`,
+                    JSON.stringify({ kilometraje: formData.kilometraje }),
+                    { withCredentials: true ,
+                    headers:{'Content-Type': 'application/json'}});
                 setShow(false);
                 window.location.reload();
             }else{
@@ -49,8 +54,8 @@ const ModalFormularioService = ({element, value, props, mode, id}) => {
             }
         }catch(e){
             setErrors(e.errors || []);
-        }
-    }
+        }
+    }
 
     return (
         <>
