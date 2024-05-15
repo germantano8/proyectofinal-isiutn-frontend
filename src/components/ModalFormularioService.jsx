@@ -1,7 +1,8 @@
 import {React, useState} from 'react';
-import {Button, Form, Modal} from 'react-bootstrap';
+import {Button, Form, Modal, Dropdown} from 'react-bootstrap';
 import { serviceSchema } from '../Validations';
 import { insertData, updateData, useGetData } from '../hooks';
+import axios from 'axios';
 
 const ModalFormularioService = ({element, value, props, mode, id}) => {
 
@@ -11,6 +12,7 @@ const ModalFormularioService = ({element, value, props, mode, id}) => {
     });
 
     const [errors, setErrors] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
@@ -41,6 +43,10 @@ const ModalFormularioService = ({element, value, props, mode, id}) => {
                 }else{
                     await updateData('service', formData, id);
                 }
+                await axios.patch(`${process.env.REACT_APP_URL}/api/vehiculo/updateKm/${formData.patente}`,
+                    JSON.stringify({ kilometraje: formData.kilometraje }),
+                    { withCredentials: true ,
+                    headers:{'Content-Type': 'application/json'}});
                 setShow(false);
                 window.location.reload();
             }else{
@@ -48,8 +54,8 @@ const ModalFormularioService = ({element, value, props, mode, id}) => {
             }
         }catch(e){
             setErrors(e.errors || []);
-        }
-    }
+        }
+    }
 
     return (
         <>
@@ -75,18 +81,36 @@ const ModalFormularioService = ({element, value, props, mode, id}) => {
                     </Form.Group>
 
                     <Form.Group className="mb-3" name="patente">
-                         <Form.Label>PATENTE DEL VEHÍCULO</Form.Label>
-                        <Form.Select
-                            title="Seleccionar patente"
-                            name={'patente'}
-                            onChange={(e) => { handleChange(e, 'patente') }}
-                            value={formData.patente}
-                        >
-                            <option value="" disabled hidden>Seleccionar</option>
-                            {vehiculos[0].map((v) => (
-                                <option key={v.patente} value={v.patente}>{v.patente}</option>
-                            ))}
-                        </Form.Select>
+                        <Form.Label>PATENTE DEL VEHÍCULO</Form.Label>
+                        <Dropdown>
+                            <Dropdown.Toggle variant="secondary">
+                                {formData.patente ? formData.patente : 'Seleccionar'}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Buscar patente"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="search-input"
+                                />
+                                {vehiculos[0]
+                                    .filter((v) =>
+                                        v.patente.toLowerCase().includes(searchTerm.toLowerCase())
+                                    )
+                                    .map((v) => (
+                                        <Dropdown.Item
+                                            key={v.patente}
+                                            onClick={() => {
+                                                setFormData({ ...formData, patente: v.patente });
+                                            }}
+                                            className="dropdown-item"
+                                        >
+                                            {v.patente}
+                                        </Dropdown.Item>
+                                    ))}
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </Form.Group>
 
 

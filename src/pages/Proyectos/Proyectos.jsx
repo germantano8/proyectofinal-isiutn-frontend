@@ -82,6 +82,21 @@ const Proyectos = () => {
         document.body.removeChild(link); // Limpiar
     };
 
+    function obtenerEstado(p) {
+        const hoy = new Date();
+        const fechaInicio = new Date(p.fecha_inicio);
+        
+        if (p.fecha_fin_real) {
+            return p.fecha_fin_real;
+        } else if (fechaInicio > hoy) {
+            return 'Sin Iniciar';
+        } else if (hoy > p.fecha_fin_estimada) {
+            return 'Atrasado';
+        } else {
+            return 'En Curso';
+        }
+    }
+
     return (
         <div className='table-responsive col-12 col-md-6 col-lg-9'>
             <h1 className='text-left'>Proyectos</h1>
@@ -132,7 +147,7 @@ const Proyectos = () => {
                                     <td>{p.id}</td>
                                     <td>{p.nombre}</td>
                                     <td>{p.ubicacion}</td>
-                                    <td>{p.fecha_fin_real ? p.fecha_fin_real : 'En curso'}</td>
+                                    <td>{ obtenerEstado(p) }</td>
                                     <td><Link to={{ pathname: `/proyecto/${p.id}`}} className='btn btn-orange'>
                                         Detalles
                                     </Link></td>
