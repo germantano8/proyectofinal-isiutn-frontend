@@ -20,6 +20,24 @@ const Servicios = () => {
     comentarios_salida:''
 }
 
+const exportToCSV = (data, filename) => {
+  let csvContent = "data:text/csv;charset=utf-8,";
+  csvContent += "ID,Fecha desde,Kilometraje,Patente,Comentarios ingreso,Comentarios salida\n"; // Encabezados de las columnas
+ 
+  data.forEach(service => {
+     csvContent += `${service.id_service},${service.fecha_desde},${service.kilometraje},${service.patente},,${service.comentarios_ingreso},${service.comentarios_salida}\n`;
+  });
+ 
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", filename);
+  document.body.appendChild(link); // Requerido para Firefox
+ 
+  link.click(); // Esto descarga el archivo
+  document.body.removeChild(link); // Limpiar
+};
+
 const sortedServicios = servicios.sort((a, b) => {
   if (a[sortConfig.key] < b[sortConfig.key]) {
      return sortConfig.direction === 'ascending' ? -1 : 1;
@@ -57,8 +75,11 @@ const filteredServicios = servicios.filter(service =>
             </div>
           <br />
           <ModalFormularioService element={"service"} value={"Nuevo service"} props={props} mode={'new'}/>
-          <br/><br/>
-
+          &nbsp;
+          <button className="btn btn-orange" onClick={() => exportToCSV(filteredServicios, 'services.csv')}>
+                Exportar a CSV
+          </button>
+            <br/><br/>
           <input
           type="text"
           className="form-control"
