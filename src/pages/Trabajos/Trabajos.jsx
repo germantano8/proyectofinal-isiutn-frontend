@@ -24,10 +24,18 @@ const Trabajos = () => {
     const handleSearch = event => {
         setSearchTerm(event.target.value);
     };
+
+    const currentUrl = window.location.href;
+    const partes = currentUrl.split("/");
+    const codigo = partes[partes.length - 1]
+    
+
     const filteredTrabajos = trabajos.filter(trabajo =>
-        trabajo.patente.toLowerCase().includes(searchTerm.toLowerCase())
+        codigo === 'trabajos' ? 
+         trabajo.patente.toLowerCase().includes(searchTerm.toLowerCase())
         || trabajo.cliente.razon_social.toLowerCase().includes(searchTerm.toLowerCase())
-        || trabajo.proyecto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+        || trabajo.proyecto.nombre.toLowerCase().includes(searchTerm.toLowerCase()):
+        trabajo.patente = codigo             
     );
 
     const exportToCSV = (data, filename) => {
@@ -110,6 +118,8 @@ const Trabajos = () => {
 
                 <tbody>
                     {
+                    filteredTrabajos !== '' ? (
+
                     filteredTrabajos.map((t) => {
                         return (
                             <tr key={t.id_trabajo}>
@@ -127,6 +137,28 @@ const Trabajos = () => {
                             </tr>
                         )
                     })
+                    ) : (
+                    trabajos.map((t) => {
+                        return (
+                            <tr key={t.id_trabajo}>
+                                <td>{t.id_trabajo}</td>
+                                <td>{t.patente}</td>
+                                <td>{t.fecha_desde}</td>
+                                <td>{t.fecha_hasta}</td>
+                                <td>{t.cuit_cliente === '00000000000' ? "Propio" : "Alquiler"}</td>
+                                <td>{t.cuit_cliente === '00000000000' ? "Proyecto: " + t.proyecto.nombre : t.cliente.razon_social}</td> 
+                                <td>
+                                    <ModalFormularioTrabajo value={<i class="bi bi-pencil"></i>} props={trabajos.find((objeto) => Object.values(objeto)[0] === t.id_trabajo)} mode={'update'} id={t.id_trabajo}/>
+                                    &ensp;
+                                    <button className='btn btn-danger' onClick={() => {deleteItem(t.id_trabajo)}}><i class="bi bi-trash3"></i></button>
+                                </td>
+                            </tr>
+                        )
+                    }))
+
+
+
+
                     }
                 </tbody>
             </table>

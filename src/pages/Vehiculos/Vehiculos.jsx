@@ -1,5 +1,7 @@
 import {React, useState} from 'react'
 import {useGetData,} from '../../hooks/getData'
+import { Link } from 'react-router-dom'
+import './vehiculos.css'
 import {Loading, EditDelete, ModalFormularioVehiculo} from '../../components/index.jsx'
 
 const Vehiculos = () => {
@@ -89,6 +91,7 @@ const Vehiculos = () => {
                   <a onClick={() => setSortConfig({ key: 'kilometraje', direction: 'descending' })}><i className="bi bi-arrow-down-short"></i></a>
                   </th>
                 <th scope="col">Tipo de vehículo</th>
+                <th scope="col">Detalles</th>
                 <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -104,6 +107,16 @@ const Vehiculos = () => {
                     <td>{r.anio}</td>
                     <td>{r.kilometraje}</td>
                     <td>{r.tipo_vehiculo.descripcion}</td>
+                    <td >                      
+                    <a href={`/servicios/${r.patente}`} 
+                     className="hover-link"> Service</a>
+                    <br />
+                    <Link to={`/trabajos/${r.patente}`}
+                    className="hover-link"> Trabajos</Link>
+                    <br />
+                    <Link to={`/reparaciones/${r.patente}`}                    
+                    className="hover-link"> Reparaciones</Link>
+                    </td>
                     <EditDelete data={vehiculos} element={"vehiculo"} id={r.patente}/>
                   </tr>
                 )

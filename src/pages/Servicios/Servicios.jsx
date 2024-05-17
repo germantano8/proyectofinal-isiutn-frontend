@@ -1,8 +1,9 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import {useGetData} from '../../hooks/getData'
 import Loading from '../../components/Loading'
 import EditDelete from '../../components/EditDelete'
 import ModalFormularioService from '../../components/ModalFormularioService'
+import Vehiculos from '../Vehiculos/Vehiculos'
 
 const Servicios = () => {
 
@@ -11,6 +12,9 @@ const Servicios = () => {
   const [sortConfig, setSortConfig] = useState({
     fecha: {key: 'fecha', direction: 'ascending'},
   })
+  const [services, setServices] = useState([]);
+  
+
   const props={
     id_service:'',
     fecha:'',
@@ -34,8 +38,15 @@ const handleSearch = event => {
   setSearchTerm(event.target.value);
 };
 
+const currentUrl = window.location.href;
+const partes = currentUrl.split("/");
+const codigo = partes[partes.length - 1]
+
 const filteredServicios = servicios.filter(service =>
-  service.patente.toLowerCase().includes(searchTerm)
+  codigo === 'servicios' ? 
+  service.patente.toLowerCase().includes(searchTerm):
+  service.patente = codigo 
+  
 );
   return (
     <>
@@ -88,9 +99,10 @@ const filteredServicios = servicios.filter(service =>
             {loading && <Loading/>}
 
             <tbody>
-                {
-                  filteredServicios.map((r) => {
-                    return (
+                
+                  {
+                  filteredServicios !== '' ? (
+                    filteredServicios.map(r => (
                       <tr key={r.id}>
                         <td>{r.id}</td>
                         <td>{r.fecha}</td>
@@ -100,14 +112,30 @@ const filteredServicios = servicios.filter(service =>
                         <td>{r.comentarios_salida}</td>
                         <EditDelete data={servicios} element={"service"} id={r.id}/>
                       </tr>
-                    )
-                  })
-                }
+                    ))
+                    ) : (
+                    servicios.map(r => (
+                      <tr key={r.id}>
+                        <td>{r.id}</td>
+                        <td>{r.fecha}</td>
+                        <td>{r.kilometraje}</td>
+                        <td>{r.patente}</td>
+                        <td>{r.comentarios_ingreso}</td>
+                        <td>{r.comentarios_salida}</td>
+                        <EditDelete data={servicios} element={"service"} id={r.id}/>
+                      </tr>
+                    ))
+                  )}
+                  
+                
             </tbody>
           </table>
         </div>
     </>
+    
   )
+
+  
 }
 
 export default Servicios

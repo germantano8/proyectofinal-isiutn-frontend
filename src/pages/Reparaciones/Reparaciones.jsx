@@ -32,8 +32,18 @@ const Reparaciones = () => {
   const handleSearch = event => {
     setSearchTerm(event.target.value);
   };
+  
+  const currentUrl = window.location.href;
+  const partes = currentUrl.split("/");
+  const codigo = partes[partes.length - 1];
 
-  const filteredReparaciones = reparaciones.filter(reparacion => reparacion.patente.toLowerCase().includes(searchTerm));
+  const filteredReparaciones = reparaciones.filter(reparacion => 
+
+    codigo === 'reparaciones' ? 
+    reparacion.patente.toLowerCase().includes(searchTerm):
+    reparacion.patente = codigo 
+
+  );
 
   return (
     <>
@@ -75,6 +85,7 @@ const Reparaciones = () => {
 
             <tbody>
                 {
+                  filteredReparaciones !== '' ? (
                   filteredReparaciones.map((r) => {
                     return (
                       <tr key={r.id}>
@@ -87,6 +98,21 @@ const Reparaciones = () => {
                       </tr>
                     )
                   })
+                ):(
+                  reparaciones.map((r) => {
+                    return (
+                      <tr key={r.id}>
+                        <td>{r.id}</td>
+                        <td>{r.comentarios}</td>
+                        <td>{r.fecha_desde}</td>
+                        <td>{r.fecha_hasta}</td>
+                        <td>{r.patente}</td>
+                        <EditDelete data={reparaciones} element={"reparacion"} id={r.id}/>
+                      </tr>
+                    )
+                  })
+
+                )
                 }
             </tbody>
           </table>

@@ -35,11 +35,16 @@ const App = () => {
               <Route path="/trabajos" element={<Trabajos />} />
               <Route path="/proyecto/:id" element={<ProyectoSingle />} />
               <Route path="/clientes" element={<Clientes />} />
-              <Route path="/reparaciones" element={<Reparaciones />} />
+              <Route path="/reparaciones/*" element={<Reparaciones />} />
+              <Route path="/reparaciones/:id" element={<Reparaciones />} />
               <Route path="/metricas" element={<Metricas />} />
               <Route path="/vehiculos" element={<Vehiculos />} />
-              <Route path="/servicios" element={<Servicios />} />
-              <Route path="/trabajos" element={<Trabajos />} />
+
+              <Route path="/servicios/*" element={<Servicios />} />
+              
+              <Route path="/servicios/:id" element={<Servicios />} />
+              <Route path="/trabajos/*" element={<Trabajos />} />
+              <Route path="/trabajos/:id" element={<Trabajos />} />
               <Route path="/clientes" element={<Clientes />} />
               <Route path="/calendario" element={<Calendario />} />
             </>
