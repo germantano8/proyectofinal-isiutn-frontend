@@ -26,10 +26,10 @@ const Servicios = () => {
 
 const exportToCSV = (data, filename) => {
   let csvContent = "data:text/csv;charset=utf-8,";
-  csvContent += "ID,Fecha desde,Kilometraje,Patente,Comentarios ingreso,Comentarios salida\n"; // Encabezados de las columnas
+  csvContent += "ID,Fecha,Kilometraje,Patente,Comentarios ingreso,Comentarios salida\n"; // Encabezados de las columnas
  
   data.forEach(service => {
-     csvContent += `${service.id_service},${service.fecha_desde},${service.kilometraje},${service.patente},,${service.comentarios_ingreso},${service.comentarios_salida}\n`;
+     csvContent += `${service.id},${service.fecha},${service.kilometraje},${service.patente},${service.comentarios_ingreso},${service.comentarios_salida}\n`;
   });
  
   const encodedUri = encodeURI(csvContent);
