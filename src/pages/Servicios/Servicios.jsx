@@ -40,7 +40,7 @@ const filteredServicios = servicios.filter(service =>
   return (
     <>
         <div className='table-responsive col-12 col-md-6 col-lg-9'>
-          <h1 className='text-left'>Services</h1>
+          <h1 className='text-left' style={{color: '#47525E'}}>Services</h1>
           <div className="accordion" id="accordionExample">
               <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -73,12 +73,12 @@ const filteredServicios = servicios.filter(service =>
             <thead>
               <tr>
                 <th scope="col">ID</th>
+                    <th scope="col">Patente</th>
                     <th scope="col">Fecha
                     <a onClick={() => setSortConfig({ key: 'fecha', direction: 'ascending' })}><i className="bi bi-arrow-up-short"></i></a>
                     <a onClick={() => setSortConfig({ key: 'fecha', direction: 'descending' })}><i className="bi bi-arrow-down-short"></i></a>
                     </th>
                     <th scope="col">Kilometraje</th>
-                    <th scope="col">Patente</th>
                     <th scope="col">Comentarios ingreso</th>
                     <th scope="col">Comentarios salida</th>
                     <th scope="col">Acciones</th>
@@ -92,10 +92,10 @@ const filteredServicios = servicios.filter(service =>
                   filteredServicios.map((r) => {
                     return (
                       <tr key={r.id}>
-                        <td>{r.id}</td>
+                        <td style={{ fontWeight: 'bold'}}>{r.id}</td>
+                        <td style={{ fontWeight: 'bold'}}>{r.patente}</td>
                         <td>{r.fecha}</td>
                         <td>{r.kilometraje}</td>
-                        <td>{r.patente}</td>
                         <td>{r.comentarios_ingreso}</td>
                         <td>{r.comentarios_salida}</td>
                         <EditDelete data={servicios} element={"service"} id={r.id}/>

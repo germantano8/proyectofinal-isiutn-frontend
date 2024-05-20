@@ -1,6 +1,8 @@
 import { React, useState } from 'react'
 import './login.css'
 import {loginSchema} from '../../Validations'
+import image from './logo-controlmaq.png'
+
 
 const Login = () => {
 
@@ -44,12 +46,14 @@ const Login = () => {
 	}
 
 	return (
-		<div className='container'>
+		<div className='containerLogin'>
 			<div className="row justify-content-center">
 				<div className="col-lg-4 col-md-6 col-12">
-					<form onSubmit={handleSubmit}>
-						<h1 className='text-center'>ControlMaq</h1>
-						<br/>
+					<form onSubmit={handleSubmit} class = 'customform'>
+						<img src={image} className='imgcustom' alt="logo controlmaq"/>
+						{/*
+						<label className='form-label'>Iniciar sesión</label> 
+						<br/>*/}
 
 						<label className='form-label'>Nombre</label>
 						<input className='form-control' type="text" value={nombre}

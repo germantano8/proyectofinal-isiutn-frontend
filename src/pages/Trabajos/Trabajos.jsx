@@ -67,7 +67,7 @@ const Trabajos = () => {
 
     return (
         <div className='table-responsive col-12 col-md-6 col-lg-9'>
-            <h1 className='text-left'>Trabajos</h1>
+            <h1 className='text-left' style={{color: '#47525E'}}>Trabajos</h1>
             <br />
 
             <ModalFormularioTrabajo value={"Nuevo trabajo"} props={props} mode={'new'}/>
@@ -113,8 +113,8 @@ const Trabajos = () => {
                     filteredTrabajos.map((t) => {
                         return (
                             <tr key={t.id_trabajo}>
-                                <td>{t.id_trabajo}</td>
-                                <td>{t.patente}</td>
+                                <td style={{ fontWeight: 'bold'}}>{t.id_trabajo}</td>
+                                <td style={{ fontWeight: 'bold'}}>{t.patente}</td>
                                 <td>{t.fecha_desde}</td>
                                 <td>{t.fecha_hasta}</td>
                                 <td>{t.cuit_cliente === '00000000000' ? "Propio" : "Alquiler"}</td>

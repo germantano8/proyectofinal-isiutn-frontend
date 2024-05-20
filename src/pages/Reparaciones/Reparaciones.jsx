@@ -38,7 +38,7 @@ const Reparaciones = () => {
   return (
     <>
         <div className='table-responsive col-12 col-md-6 col-lg-9'>
-          <h1 className='text-left'>Reparaciones</h1>
+          <h1 className='text-left' style={{color: '#47525E'}}>Reparaciones</h1>
           <br />
           <ModalFormularioReparacion element={"reparacion"} value={"Nueva reparación"} props={props} mode={'new'}/>
           <br/><br/>
@@ -57,6 +57,7 @@ const Reparaciones = () => {
             <thead>
               <tr>
                 <th scope="col">ID</th>
+                    <th scope="col">Patente</th>
                     <th scope="col">Comentarios</th>
                     <th scope="col">Fecha desde
                       <a onClick={() => setSortConfig({ key: 'fecha_desde', direction: 'ascending' })}><i className="bi bi-arrow-up-short"></i></a>
@@ -66,7 +67,6 @@ const Reparaciones = () => {
                       <a onClick={() => setSortConfig({ key: 'fecha_hasta', direction: 'ascending' })}><i className="bi bi-arrow-up-short"></i></a>
                       <a onClick={() => setSortConfig({ key: 'fecha_hasta', direction: 'descending' })}><i className="bi bi-arrow-down-short"></i></a>
                     </th>
-                    <th scope="col">Patente</th>
                     <th scope="col">Acciones</th>
               </tr>
             </thead>
@@ -78,11 +78,11 @@ const Reparaciones = () => {
                   filteredReparaciones.map((r) => {
                     return (
                       <tr key={r.id}>
-                        <td>{r.id}</td>
+                        <td style={{ fontWeight: 'bold'}}>{r.id}</td>
+                        <td style={{ fontWeight: 'bold'}}>{r.patente}</td>
                         <td>{r.comentarios}</td>
                         <td>{r.fecha_desde}</td>
                         <td>{r.fecha_hasta}</td>
-                        <td>{r.patente}</td>
                         <EditDelete data={reparaciones} element={"reparacion"} id={r.id}/>
                       </tr>
                     )

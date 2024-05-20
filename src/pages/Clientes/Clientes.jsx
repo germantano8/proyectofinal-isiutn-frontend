@@ -56,7 +56,7 @@ const Clientes = () => {
 
   return (
     <div className='table-responsive col-12 col-md-6 col-lg-9'>
-      <h1 className='text-left'>Clientes</h1>
+      <h1 className='text-left' style={{color: '#47525E'}}>Clientes</h1>
 
       {/* Acá se llama al componente ModalFormulario, que se encarga de mostrar un modal con un formulario para agregar un nuevo cliente 
         element: el nombre del elemento que se va a agregar (va a servir para posteriormente hacer los fetch a la URL correspondientes), 
@@ -85,12 +85,13 @@ const Clientes = () => {
       <table className="table table-striped">
         <thead>
           <tr>
-              <th scope="col">Cuit</th>
               <th scope="col">
                 Razón Social
                 <a onClick={() => setSortConfig({ key: 'razon_social', direction: 'ascending' })}><i className="bi bi-arrow-up-short"></i></a>
                 <a onClick={() => setSortConfig({ key: 'razon_social', direction: 'descending' })}><i className="bi bi-arrow-down-short"></i></a>
               </th>
+              <th scope="col">Cuit</th>
+
               <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -102,8 +103,8 @@ const Clientes = () => {
               filteredClientes.map((c) => {
                 return (
                   <tr key={c.cuit}>
+                    <td style={{ fontWeight: 'bold'}}>{c.razon_social}</td>
                     <td>{c.cuit}</td>
-                    <td>{c.razon_social}</td>
                     <EditDelete data={clientes} element={"cliente"} id={c.cuit}/>
                   </tr>
                 )
