@@ -2,6 +2,7 @@ import React from 'react'
 import { useLocation } from "react-router-dom";
 import image from './logo-controlmaq.png'
 import * as utils from '../utils/utils'
+import { FaSignOutAlt } from 'react-icons/fa';
 
 const Sidebar = () => {
 
@@ -27,7 +28,9 @@ return (
             <a href="/vehiculos" className={pathname === "/vehiculos" ? `${className} active` : className}>Vehículos</a>
             <a href="/clientes" className={pathname === "/clientes" ? `${className} active` : className}>Clientes</a>
             <a href="/metricas" className={pathname === "/metricas" ? `${className} active` : className}>Metricas de uso</a>
-            <a href="/" onClick={handleLogout} className={` ${className} list-group-item-danger `}>Cerrar sesión</a>
+            <a href="/" onClick={handleLogout} className={` ${className} list-group-item-danger `}>
+            <FaSignOutAlt className="logout-icon" /> Cerrar sesión
+            </a>
         </div>
     </div>
 )
