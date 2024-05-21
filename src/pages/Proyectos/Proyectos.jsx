@@ -99,7 +99,7 @@ const Proyectos = () => {
 
     return (
         <div className='table-responsive col-12 col-md-6 col-lg-9'>
-            <h1 className='text-left'>Proyectos</h1>
+            <h1 className='text-left' style={{color: '#47525E'}}>Proyectos</h1>
 
             <br />
             <ModalFormulario element={'proyecto'} value={<><i className="bi bi-plus"></i> Nuevo proyecto</>}  props={props} mode={'new'}/>
@@ -144,8 +144,8 @@ const Proyectos = () => {
                         filteredProyectos.map((p)=>{
                             return (
                                 <tr key={p.id}>
-                                    <td>{p.id}</td>
-                                    <td>{p.nombre}</td>
+                                    <td style={{ fontWeight: 'bold'}}>{p.id}</td>
+                                    <td style={{ fontWeight: 'bold'}}>{p.nombre}</td>
                                     <td>{p.ubicacion}</td>
                                     <td>{ obtenerEstado(p) }</td>
                                     <td><Link to={{ pathname: `/proyecto/${p.id}`}} className='btn btn-orange'>

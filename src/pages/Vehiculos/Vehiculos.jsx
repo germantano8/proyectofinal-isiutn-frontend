@@ -57,7 +57,7 @@ const Vehiculos = () => {
   
   return (
     <div className='table-responsive col-12 col-md-6 col-lg-9'>
-      <h1 className='text-left'>Vehículos</h1>
+      <h1 className='text-left' style={{color: '#47525E'}}>Vehículos</h1>
       <br />
       <ModalFormularioVehiculo element={"vehiculo"} value={<><i className="bi bi-plus"></i> Nuevo vehículo</>}  props={props} mode={'new'}/>
       &nbsp;
@@ -103,7 +103,7 @@ const Vehiculos = () => {
               filteredVehiculos.map((r) => {
                 return (
                   <tr key={r.patente}>
-                    <td>{r.patente}</td>
+                    <td style={{ fontWeight: 'bold'}}>{r.patente}</td>
                     <td>{r.anio}</td>
                     <td>{r.kilometraje}</td>
                     <td>{r.tipo_vehiculo.descripcion}</td>

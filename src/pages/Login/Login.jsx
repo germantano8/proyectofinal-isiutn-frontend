@@ -45,7 +45,7 @@ const Login = () => {
 	}
 
 	return (
-		<div className='container'>
+		<div className='containerLogin'>
 			<div className="row justify-content-center">
 				<div className="col-lg-4 col-md-6 col-12">
 					<form onSubmit={handleSubmit}>
