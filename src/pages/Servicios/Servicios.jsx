@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useGetData } from '../../hooks/getData';
 import Loading from '../../components/Loading';
 import EditDelete from '../../components/EditDelete';
+import '../../components/links.css'
 import ModalFormularioService from '../../components/ModalFormularioService';
-import Vehiculos from '../Vehiculos/Vehiculos';
 
 const Servicios = () => {
   const [servicios, loading] = useGetData('service');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({
-    fecha: { key: 'fecha', direction: 'ascending' },
+    key: 'fecha',
+    direction: 'ascending'
   });
-  const [services, setServices] = useState([]);
 
   const props = {
     id_service: '',
@@ -41,11 +41,14 @@ const Servicios = () => {
   };
 
   const sortedServicios = servicios.sort((a, b) => {
-    if (a[sortConfig.key] < b[sortConfig.key]) {
-      return sortConfig.direction === 'ascending' ? -1 : 1;
+    const key = sortConfig.key;
+    const direction = sortConfig.direction;
+
+    if (a[key] < b[key]) {
+      return direction === 'ascending' ? -1 : 1;
     }
-    if (a[sortConfig.key] > b[sortConfig.key]) {
-      return sortConfig.direction === 'ascending' ? 1 : -1;
+    if (a[key] > b[key]) {
+      return direction === 'ascending' ? 1 : -1;
     }
     return 0;
   });
@@ -70,25 +73,34 @@ const Servicios = () => {
     <>
       <div className='table-responsive col-12 col-md-6 col-lg-9'>
         <h1 className='text-left'>Services</h1>
-        <div className="accordion" id="accordionExample">
-          <div className="accordion-item">
-            <h2 className="accordion-header">
-              <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Ver próximos services a realizar
-              </button>
-            </h2>
-            <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-              <div className="accordion-body" style={{ padding: '-10px' }}>
-                <iframe title="services" width="900" height="550" src="https://app.powerbi.com/reportEmbed?reportId=fbf42d14-8985-430d-b28f-8f9efa9f03df&autoAuth=true&embeddedDemo=true" frameBorder="0" allowFullScreen="true"></iframe>
+        {codigo !== 'servicios' && <h4 className='text-left text-muted'>Patente: {codigo.toUpperCase()}</h4>}
+        {codigo !== 'servicios' && (
+          <a href="/vehiculos" className="hover-link">
+          <i className="bi bi-arrow-left"></i> Volver a Vehículos
+          </a>
+        )}
+        <br />
+        {codigo === 'servicios' && (
+          <div className="accordion" id="accordionExample">
+            <div className="accordion-item">
+              <h2 className="accordion-header">
+                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Ver próximos services a realizar
+                </button>
+              </h2>
+              <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div className="accordion-body" style={{ padding: '-10px' }}>
+                  <iframe title="services" width="900" height="550" src="https://app.powerbi.com/reportEmbed?reportId=fbf42d14-8985-430d-b28f-8f9efa9f03df&autoAuth=true&embeddedDemo=true" frameBorder="0" allowFullScreen="true"></iframe>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
         <br />
-        <ModalFormularioService element={"service"} value={"Nuevo service"} props={props} mode={'new'} />
+        <ModalFormularioService element={"service"} value={<><i className="bi bi-plus"></i> Nuevo service</>} props={props} mode={'new'} />
         &nbsp;
         <button className="btn btn-orange" onClick={() => exportToCSV(filteredServicios, 'services.csv')}>
-          Exportar a CSV
+          <i className="bi bi-file-earmark-spreadsheet"></i> Exportar a CSV
         </button>
         <br /><br />
         <input
@@ -135,7 +147,7 @@ const Servicios = () => {
         </table>
       </div>
     </>
-  )
+  );
 }
 
 export default Servicios;

@@ -102,10 +102,10 @@ const Proyectos = () => {
             <h1 className='text-left'>Proyectos</h1>
 
             <br />
-            <ModalFormulario element={'proyecto'} value={"Nuevo proyecto"} props={props} mode={'new'}/>
+            <ModalFormulario element={'proyecto'} value={<><i className="bi bi-plus"></i> Nuevo proyecto</>}  props={props} mode={'new'}/>
             &nbsp;
             <button className="btn btn-orange" onClick={() => exportToCSV(filteredProyectos, 'proyectos.csv')}>
-                Exportar a CSV
+                <i className="bi bi-file-earmark-spreadsheet"></i> Exportar a CSV
             </button>
             <br/><br/>
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useGetData } from '../../hooks/getData';
 import Loading from '../../components/Loading';
+import '../../components/links.css'
 import EditDelete from '../../components/EditDelete';
 import ModalFormularioReparacion from '../../components/ModalFormularioReparacion';
 
@@ -19,6 +20,24 @@ const Reparaciones = () => {
     fecha_hasta: '',
     comentarios: '',
     patente: ''
+  };
+
+  const exportToCSV = (data, filename) => {
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "ID,Comentarios,Fecha desde,Fecha hasta,Patente\n"; // Encabezados de las columnas
+
+    data.forEach(reparacion => {
+      csvContent += `${reparacion.id},${reparacion.comentarios},${reparacion.fecha_desde},${reparacion.fecha_hasta},${reparacion.patente}\n`;
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", filename);
+    document.body.appendChild(link); // Requerido para Firefox
+
+    link.click(); // Esto descarga el archivo
+    document.body.removeChild(link); // Limpiar
   };
 
   const sortedReparaciones = reparaciones.sort((a, b) => {
@@ -54,8 +73,19 @@ const Reparaciones = () => {
     <>
       <div className='table-responsive col-12 col-md-6 col-lg-9'>
         <h1 className='text-left'>Reparaciones</h1>
+        {codigo !== 'reparaciones' && <h4 className='text-left text-muted'>Patente: {codigo.toUpperCase()}</h4>}
+        {codigo !== 'reparaciones' && (
+          <a href="/vehiculos" className="hover-link">
+          <i className="bi bi-arrow-left"></i> Volver a Vehículos
+          </a>
+        )}
         <br />
-        <ModalFormularioReparacion element={"reparacion"} value={"Nueva reparación"} props={props} mode={'new'} />
+        <br />
+        <ModalFormularioReparacion element={"reparacion"} value={<><i className="bi bi-plus"></i> Nueva reparación</>} props={props} mode={'new'} />
+        &nbsp;
+        <button className="btn btn-orange" onClick={() => exportToCSV(filteredReparaciones, 'reparaciones.csv')}>
+          <i className="bi bi-file-earmark-spreadsheet"></i> Exportar a CSV
+        </button>
         <br /><br />
 
         <input

@@ -65,10 +65,10 @@ const Clientes = () => {
       
       */}
       <br />
-      <ModalFormulario element={"cliente"} value={"Nuevo cliente"} props={props} mode={'new'}/>
+      <ModalFormulario element={"cliente"} value={<><i className="bi bi-plus"></i> Nuevo cliente</>}  props={props} mode={'new'}/>
       &nbsp;
       <button className="btn btn-orange" onClick={() => exportToCSV(filteredClientes, 'clientes.csv')}>
-        Exportar a CSV
+        <i className="bi bi-file-earmark-spreadsheet"></i> Exportar a CSV
       </button>
       <br/><br/>
 

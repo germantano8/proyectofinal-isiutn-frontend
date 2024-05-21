@@ -59,10 +59,10 @@ const Vehiculos = () => {
     <div className='table-responsive col-12 col-md-6 col-lg-9'>
       <h1 className='text-left'>Vehículos</h1>
       <br />
-      <ModalFormularioVehiculo element={"vehiculo"} value={"Nuevo vehículo"} props={props} mode={'new'}/>
+      <ModalFormularioVehiculo element={"vehiculo"} value={<><i className="bi bi-plus"></i> Nuevo vehículo</>}  props={props} mode={'new'}/>
       &nbsp;
       <button className="btn btn-orange" onClick={() => exportToCSV(filteredVehiculos, 'vehiculos.csv')}>
-        Exportar a CSV
+      <i className="bi bi-file-earmark-spreadsheet"></i> Exportar a CSV
       </button>
       <br/><br/>
 

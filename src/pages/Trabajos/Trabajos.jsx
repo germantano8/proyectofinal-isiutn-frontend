@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { deleteData, useGetData } from '../../hooks';
+import '../../components/links.css'
 import { ModalFormularioTrabajo, Loading } from '../../components';
 
 const Trabajos = () => {
@@ -82,12 +83,19 @@ const Trabajos = () => {
   return (
     <div className='table-responsive col-12 col-md-6 col-lg-9'>
       <h1 className='text-left'>Trabajos</h1>
+      {codigo !== 'trabajos' && <h4 className='text-left text-muted'>Patente: {codigo.toUpperCase()}</h4>}
+      {codigo !== 'trabajos' && (
+          <a href="/vehiculos" className="hover-link">
+          <i className="bi bi-arrow-left"></i> Volver a Vehículos
+          </a>
+        )}
+        <br />
       <br />
 
-      <ModalFormularioTrabajo value={"Nuevo trabajo"} props={props} mode={'new'} />
+      <ModalFormularioTrabajo value={<><i className="bi bi-plus"></i> Nuevo trabajo</>} props={props} mode={'new'} />
       &nbsp;
       <button className="btn btn-orange" onClick={() => exportToCSV(sortedTrabajos, 'trabajos.csv')}>
-        Exportar a CSV
+        <i className="bi bi-file-earmark-spreadsheet"></i> Exportar a CSV
       </button>
       <br /><br />
 
