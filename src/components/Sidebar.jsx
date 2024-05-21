@@ -9,6 +9,7 @@ import service from './service.png'
 import clientes from './clientes.png'
 
 import * as utils from '../utils/utils'
+import { FaSignOutAlt } from 'react-icons/fa';
 
 const Sidebar = () => {
 

@@ -3,7 +3,6 @@ import './login.css'
 import {loginSchema} from '../../Validations'
 import image from './logo-controlmaq.png'
 
-
 const Login = () => {
 
 	const [nombre, setNombre] = useState('')
@@ -49,11 +48,10 @@ const Login = () => {
 		<div className='containerLogin'>
 			<div className="row justify-content-center">
 				<div className="col-lg-4 col-md-6 col-12">
-					<form onSubmit={handleSubmit} class = 'customform'>
-						<img src={image} className='imgcustom' alt="logo controlmaq"/>
-						{/*
-						<label className='form-label'>Iniciar sesión</label> 
-						<br/>*/}
+					<form onSubmit={handleSubmit}>
+					<img src={image} className='img-thumbnail' alt="logo controlmaq" style={{ width: '350px', height: '350px', border: 'none', display: 'block', margin: 'auto' }} />
+						<h2 className='text-center'>Iniciar sesión</h2>
+						<br/>
 
 						<label className='form-label'>Nombre</label>
 						<input className='form-control' type="text" value={nombre}
