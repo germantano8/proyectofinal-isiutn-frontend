@@ -1,0 +1,9 @@
+.hover-link:hover {
+    color: #ff8c00; /* Cambia el color del texto cuando el mouse pasa por encima */
+    text-decoration: none; /* Agrega subrayado cuando el mouse pasa por encima */
+  }
+
+  .hover-link {
+    color: #495057; /* Cambia el color del texto cuando el mouse pasa por encima */
+    text-decoration: none; /* Agrega subrayado cuando el mouse pasa por encima */
+  }

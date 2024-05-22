@@ -9,3 +9,16 @@
     border-color: #ff8c00;
     color: #000;
 }
+.customform{
+ max-width: 80%;
+ display: grid;
+ justify-items: center;
+}
+
+.imgcustom{
+    max-width: inherit;
+}
+.containerLogin{
+    margin-top: 5%;
+    background-color: #fff;
+}
