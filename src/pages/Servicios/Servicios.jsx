@@ -137,8 +137,8 @@ const Servicios = () => {
                   <td>{r.fecha}</td>
                   <td>{r.kilometraje}</td>
                   <td>{r.patente}</td>
-                  <td>{r.comentarios_ingreso}</td>
-                  <td>{r.comentarios_salida}</td>
+                  <td width="23%">{r.comentarios_ingreso}</td>
+                  <td width="23%">{r.comentarios_salida}</td>
                   <EditDelete data={servicios} element={"service"} id={r.id} />
                 </tr>
               ))
