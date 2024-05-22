@@ -6,6 +6,7 @@ ControlMaq es una plataforma dedicada a la gestión de maquinaria dentro de una 
 
 Clonar el repositorio escribiendo 'git clone [link]' en la terminal  
 Correr 'npm install'  
+Renombrar el archivo '.default.env' a '.env'  
 Correr 'npm start'
 
 ## Alumnos
